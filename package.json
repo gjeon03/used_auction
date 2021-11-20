@@ -1,0 +1,27 @@
+{
+  "name": "used_auction",
+  "version": "1.0.0",
+  "description": "The best way to used auction",
+  "scripts": {
+    "dev:server": "nodemon"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gjeon03/used_auction.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/gjeon03/used_auction/issues"
+  },
+  "homepage": "https://github.com/gjeon03/used_auction#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.16.0",
+    "@babel/node": "^7.16.0",
+    "@babel/preset-env": "^7.16.4",
+    "nodemon": "^2.0.15"
+  }
+}

@@ -12,12 +12,15 @@ User
 Main
 
 - home[]
-- view[]
-- upload[]
-- edit[]
 - login[]
 - logout[]
 - join[]
+
+Goods
+
+- view[]
+- upload[]
+- edit[]
 
 Review
 
