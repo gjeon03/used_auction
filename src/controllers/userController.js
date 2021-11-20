@@ -34,9 +34,5 @@ export const postDelete = (req, res) => {};
 //Bid list
 export const getBidList = (req, res) => {};
 
-export const postBidList = (req, res) => {};
-
 //Profile
-export const getProfile = (req, res) => {};
-
-export const postProfile = (req, res) => {};
+export const profile = (req, res) => {};

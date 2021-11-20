@@ -13,3 +13,8 @@ export const postUpload = (req, res) => {};
 export const getEdit = (req, res) => {};
 
 export const postEdit = (req, res) => {};
+
+//Delete
+export const getDelete = (req, res) => {};
+
+export const postDelete = (req, res) => {};
