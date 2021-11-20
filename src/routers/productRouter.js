@@ -11,7 +11,7 @@ import {
 
 const goodsRouter = express.Router();
 
-goodsRouter.route("/:id([0-9a-f]{24})/upload").get(getUpload).post(postUpload);
+goodsRouter.route("/upload").get(getUpload).post(postUpload);
 goodsRouter.route("/:id([0-9a-f]{24})/edit").get(getEdit).post(postEdit);
 goodsRouter.route("/:id([0-9a-f]{24})/delete").get(getDelete).post(postDelete);
 goodsRouter.get("/:id([0-9a-f]{24})", detail);

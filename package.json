@@ -16,7 +16,8 @@
   },
   "homepage": "https://github.com/gjeon03/used_auction#readme",
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "pug": "^3.0.2"
   },
   "devDependencies": {
     "@babel/core": "^7.16.0",

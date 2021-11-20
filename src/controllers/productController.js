@@ -1,5 +1,7 @@
 //Home
-export const home = (req, res) => {};
+export const home = (req, res) => {
+  return res.render("home", { pageTitle: "Home" });
+};
 
 //Detail
 export const detail = (req, res) => {};
