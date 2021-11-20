@@ -4,7 +4,9 @@ export const home = (req, res) => {
 };
 
 //Detail
-export const detail = (req, res) => {};
+export const detail = (req, res) => {
+  return res.render("detail", { pageTitle: "detail" });
+};
 
 //Upload
 export const getUpload = (req, res) => {};

@@ -1,12 +1,23 @@
 //Login
-export const getLogin = (req, res) => {};
+export const getLogin = (req, res) => {
+  return res.render("login", { pageTitle: "Login" });
+};
 
-export const postLogin = (req, res) => {};
+export const postLogin = (req, res) => {
+  const { email, password } = req.body;
+  console.log(email);
+  console.log(password);
+  return res.redirect("/");
+};
 
 //Join
-export const getJoin = (req, res) => {};
+export const getJoin = (req, res) => {
+  return res.render("join", { pageTitle: "Join" });
+};
 
-export const postJoin = (req, res) => {};
+export const postJoin = (req, res) => {
+  return res.redirect("/login");
+};
 
 //Edit
 export const getEdit = (req, res) => {};
