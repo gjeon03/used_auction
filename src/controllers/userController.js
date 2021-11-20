@@ -1,22 +1,67 @@
-//Login
-export const getLogin = (req, res) => {
-  return res.render("login", { pageTitle: "Login" });
-};
-
-export const postLogin = (req, res) => {
-  const { email, password } = req.body;
-  console.log(email);
-  console.log(password);
-  return res.redirect("/");
-};
+import User from "../models/User";
+import bcrypt from "bcrypt";
 
 //Join
 export const getJoin = (req, res) => {
   return res.render("join", { pageTitle: "Join" });
 };
 
-export const postJoin = (req, res) => {
-  return res.redirect("/login");
+export const postJoin = async (req, res) => {
+  const { email, username, password, password2, address, address2 } = req.body;
+  const pageTitle = "Join";
+  if (password !== password2) {
+    return res.status(400).render("join", {
+      pageTitle,
+      errorMessage: "비밀번호를 확인해주세요.",
+    });
+  }
+  const exists = await User.exists({ $or: [{ username }, { email }] });
+  if (exists) {
+    return res.status(400).render("join", {
+      pageTitle,
+      errorMessage: "이 이메일은 이미 사용중입니다.",
+    });
+  }
+  try {
+    await User.create({
+      username,
+      email,
+      password,
+      address,
+      address2,
+    });
+    return res.redirect("/login");
+  } catch (error) {
+    return res.status(400).render("join", {
+      pageTitle: pageTitle,
+      errorMessage: error._message,
+    });
+  }
+};
+
+//Login
+export const getLogin = (req, res) => {
+  return res.render("login", { pageTitle: "Login" });
+};
+
+export const postLogin = async (req, res) => {
+  const { email, password } = req.body;
+  const pageTitle = "Login";
+  const user = await User.findOne({ email, socialOnly: false });
+  if (!user) {
+    return res.status(400).render("login", {
+      pageTitle,
+      errorMessage: "이 이메일을 사용하는 계정이 존재하지 않습니다.",
+    });
+  }
+  const ok = await bcrypt.compare(password, user.password);
+  if (!ok) {
+    return res.status(400).render("login", {
+      pageTitle,
+      errorMessage: "잘못된 비밀번호입니다.",
+    });
+  }
+  return res.redirect("/");
 };
 
 //Edit
