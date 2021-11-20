@@ -1,30 +1,31 @@
-#Used Auction
+# Used Auction
 
-User
+### User
 
 - edit profile[]
-  - secession[]
-  - change password[]
+- delete[]
+- change password[]
 - shopping basket[]
 - bid list[]
 - profile[]
+- logout[]
 
-Main
+### Main
 
 - home[]
 - login[]
-- logout[]
 - join[]
 
-Goods
+### Product
 
-- view[]
+- detail[]
 - upload[]
 - edit[]
+- delete[]
 
-Review
+### Review
 
 - home[]
-- view[]
+- detail[]
 - upload[]
 - edit[]
