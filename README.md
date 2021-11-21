@@ -5,7 +5,6 @@
 - edit profile[]
 - delete[]
 - change password[]
-- shopping basket[]
 - bid list[]
 - profile[]
 - logout[]
@@ -23,10 +22,3 @@
 - upload[]
 - edit[]
 - delete[]
-
-### Review
-
-- home[]
-- detail[]
-- upload[]
-- edit[]

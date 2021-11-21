@@ -6,7 +6,7 @@ block content
 		label(for="avatar") Avatar
 		input(type="file", id="avatar", name="avatar", accept="image/*")
 		input(placeholder="Email", name="email", type="email", required, disabled, value=loggedInUser.email)
-		input(placeholder="Username", name="username", type="text", required, value=loggedInUser.username)
+		input(placeholder="Username", name="username", type="text", required, disabled, value=loggedInUser.username)
 		input(placeholder="Address", type="address", name="address", required, value=loggedInUser.address)
 		input(placeholder="Detailed Address", type="address", name="address2", required, value=loggedInUser.address2)
 		input(type="submit", value="Update Profile")

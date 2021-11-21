@@ -7,8 +7,6 @@ import {
   postDelete,
   getChangePassword,
   postChangePassword,
-  getShoppingBasket,
-  postShoppingBasket,
   getBidList,
   logout,
 } from "../controllers/userController";
@@ -21,7 +19,6 @@ userRouter
   .route("/change-password")
   .get(getChangePassword)
   .post(postChangePassword);
-userRouter.route("/basket").get(getShoppingBasket).post(postShoppingBasket);
 userRouter.get("/bid-list", getBidList);
 userRouter.get("/logout", logout);
 userRouter.get("/:id([0-9a-f]{24})", profile);

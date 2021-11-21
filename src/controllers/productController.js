@@ -1,6 +1,8 @@
+import fakeDb from "../models/Product";
+
 //Home
 export const home = (req, res) => {
-  return res.render("home", { pageTitle: "Home" });
+  return res.render("home", { pageTitle: "Home", products: fakeDb });
 };
 
 //Detail

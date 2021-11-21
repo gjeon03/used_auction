@@ -76,15 +76,13 @@ export const postEdit = async (req, res) => {
     session: {
       user: { _id, avatarUrl },
     },
-    body: { email, username, address, address2 },
+    body: { address, address2 },
     file,
   } = req;
   const updatedUser = await User.findByIdAndUpdate(
     _id,
     {
       avatarUrl: file ? file.location : avatarUrl,
-      email,
-      username,
       address,
       address2,
     },
@@ -170,11 +168,6 @@ export const postDelete = async (req, res) => {
   req.session.loggedIn = false;
   return res.redirect("/");
 };
-
-//Shopping Basket
-export const getShoppingBasket = (req, res) => {};
-
-export const postShoppingBasket = (req, res) => {};
 
 //Bid list
 export const getBidList = (req, res) => {};

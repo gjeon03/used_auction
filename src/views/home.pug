@@ -1,9 +1,9 @@
 extends base
-include mixins/products
+include mixins/product
 
 block content 
 	div.products-grid
-		//each product in products
-		//	+product(product)
-		//else
+		each product in products
+			+product(product)
+		else
 			span.empty__message No products found 
