@@ -144,15 +144,37 @@ export const postChangePassword = async (req, res) => {
   return res.redirect("/users/logout");
 };
 
+//Delete
+export const getDelete = (req, res) => {
+  return res.render("delete", { pageTitle: "Sign out" });
+};
+
+export const postDelete = async (req, res) => {
+  const {
+    session: {
+      user: { _id },
+    },
+    body: { password },
+  } = req;
+  const user = await User.findById(_id);
+  const ok = await bcrypt.compare(password, user.password);
+  if (!ok) {
+    return res.status(400).render("delete", {
+      pageTitle: "Sign out",
+      errorMessage: "비밀번호가 올바르지 않습니다.",
+    });
+  }
+  await User.findByIdAndDelete(_id);
+  req.session.user = null;
+  res.locals.loggedInUser = req.session.user;
+  req.session.loggedIn = false;
+  return res.redirect("/");
+};
+
 //Shopping Basket
 export const getShoppingBasket = (req, res) => {};
 
 export const postShoppingBasket = (req, res) => {};
-
-//Delete
-export const getDelete = (req, res) => {};
-
-export const postDelete = (req, res) => {};
 
 //Bid list
 export const getBidList = (req, res) => {};

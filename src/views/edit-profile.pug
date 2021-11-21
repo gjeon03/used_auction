@@ -1,6 +1,7 @@
 extends base
 
 block content
+	div.page_title #{pageTitle}
 	form(method="POST").edit-profile__form
 		label(for="avatar") Avatar
 		input(type="file", id="avatar", name="avatar", accept="image/*")
@@ -11,4 +12,6 @@ block content
 		input(type="submit", value="Update Profile")
 		if !loggedInUser.socialOnly
 			div.edit-profile__password
-				a(href="change-password") Change Password &rarr;
+				a(href="change-password") 비밀번호 변경 &rarr;
+		div.sign_out 
+			a(href="delete") 회원탈퇴 &rarr;
