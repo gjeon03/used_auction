@@ -3,18 +3,23 @@ header
 		i.fas.fa-handshake
 	nav
 		ul
-			li 
-				i.fas.fa-grip-lines
-			li
-				a(href="/products/upload") Upload Product
-			li
-				a(href="/users/edit") Edit Profile
-			li 
-				a(href="/users/logout")  Log Out
-			li
-				a(href=`/users/`)
-					span 😀
-			li
-				a(href="/login")  Login
-			li
-				a(href="/join").header__btn  Join
+			//-li 
+			//-	i.fas.fa-grip-lines
+			if loggedIn
+				li
+					a(href="/products/upload") 판매하기
+				li
+					a(href="/users/edit") Edit Profile
+				li 
+					a(href="/users/logout")  Log Out
+				li
+					a(href=`/users/${loggedInUser._id}`)
+						if !loggedInUser.avatarUrl
+							span 😀
+						else
+							img.header__avatar(src=loggedInUser.avatarUrl, crossorigin)
+			else
+				li
+					a(href="/login")  Login
+				li
+					a(href="/join").header__btn  Join 

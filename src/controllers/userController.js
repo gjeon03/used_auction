@@ -61,6 +61,8 @@ export const postLogin = async (req, res) => {
       errorMessage: "잘못된 비밀번호입니다.",
     });
   }
+  req.session.loggedIn = true;
+  req.session.user = user;
   return res.redirect("/");
 };
 
@@ -70,7 +72,13 @@ export const getEdit = (req, res) => {};
 export const postEdit = (req, res) => {};
 
 //Logout
-export const logout = (req, res) => {};
+export const logout = (req, res) => {
+  req.session.user = null;
+  res.locals.loggedInUser = req.session.user;
+  req.session.loggedIn = false;
+  //req.flash("info", "Bye Bye");
+  return res.redirect("/");
+};
 
 //Change Password
 export const getChangePassword = (req, res) => {};
