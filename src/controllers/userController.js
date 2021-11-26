@@ -3,21 +3,21 @@ import bcrypt from "bcrypt";
 
 //Join
 export const getJoin = (req, res) => {
-  return res.render("join", { pageTitle: "Join" });
+  return res.render("layouts/join", { pageTitle: "JOIN" });
 };
 
 export const postJoin = async (req, res) => {
   const { email, username, password, password2, address, address2 } = req.body;
-  const pageTitle = "Join";
+  const pageTitle = "JOIN";
   if (password !== password2) {
-    return res.status(400).render("join", {
+    return res.status(400).render("layouts/join", {
       pageTitle,
       errorMessage: "비밀번호를 확인해주세요.",
     });
   }
   const exists = await User.exists({ $or: [{ username }, { email }] });
   if (exists) {
-    return res.status(400).render("join", {
+    return res.status(400).render("layouts/join", {
       pageTitle,
       errorMessage: "이 이메일은 이미 사용중입니다.",
     });
@@ -32,7 +32,7 @@ export const postJoin = async (req, res) => {
     });
     return res.redirect("/login");
   } catch (error) {
-    return res.status(400).render("join", {
+    return res.status(400).render("layouts/join", {
       pageTitle: pageTitle,
       errorMessage: error._message,
     });
@@ -41,22 +41,22 @@ export const postJoin = async (req, res) => {
 
 //Login
 export const getLogin = (req, res) => {
-  return res.render("login", { pageTitle: "Login" });
+  return res.render("layouts/login", { pageTitle: "LOGIN" });
 };
 
 export const postLogin = async (req, res) => {
   const { email, password } = req.body;
-  const pageTitle = "Login";
+  const pageTitle = "LOGIN";
   const user = await User.findOne({ email, socialOnly: false });
   if (!user) {
-    return res.status(400).render("login", {
+    return res.status(400).render("layouts/login", {
       pageTitle,
       errorMessage: "이 이메일을 사용하는 계정이 존재하지 않습니다.",
     });
   }
   const ok = await bcrypt.compare(password, user.password);
   if (!ok) {
-    return res.status(400).render("login", {
+    return res.status(400).render("layouts/login", {
       pageTitle,
       errorMessage: "잘못된 비밀번호입니다.",
     });
@@ -68,7 +68,7 @@ export const postLogin = async (req, res) => {
 
 //Edit
 export const getEdit = (req, res) => {
-  return res.render("edit-profile", { pageTitle: "Edit Profile" });
+  return res.render("users/edit-profile", { pageTitle: "EDIT PROFILE" });
 };
 
 export const postEdit = async (req, res) => {
@@ -107,7 +107,7 @@ export const getChangePassword = (req, res) => {
     req.flash("error", "Can't change password.");
     return res.redirect("/");
   }
-  return res.render("users/change-password", { pageTitle: "Change Password" });
+  return res.render("users/change-password", { pageTitle: "CHANGE PASSWORD" });
 };
 
 export const postChangePassword = async (req, res) => {
@@ -119,21 +119,22 @@ export const postChangePassword = async (req, res) => {
   } = req;
   const user = await User.findById(_id);
   const ok = await bcrypt.compare(oldPassword, user.password);
+  const pageTitle = "CHANGE PASSWORD";
   if (!ok) {
     return res.status(400).render("users/change-password", {
-      pageTitle: "Change Password",
+      pageTitle: pageTitle,
       errorMessage: "현재 비밀번호가 올바르지 않습니다.",
     });
   }
   if (newPassword !== newPasswordConfirmation) {
     return res.status(400).render("users/change-password", {
-      pageTitle: "Change Password",
+      pageTitle: pageTitle,
       errorMessage: "비밀번호가 확인과 일치하지 않습니다.",
     });
   }
   if (oldPassword === newPassword) {
     return res.status(400).render("users/change-password", {
-      pageTitle: "Change Password",
+      pageTitle: pageTitle,
       errorMessage: "현재 비밀번호와 동일합니다.",
     });
   }
@@ -144,7 +145,7 @@ export const postChangePassword = async (req, res) => {
 
 //Delete
 export const getDelete = (req, res) => {
-  return res.render("delete", { pageTitle: "Sign out" });
+  return res.render("users/delete", { pageTitle: "Sign out" });
 };
 
 export const postDelete = async (req, res) => {
@@ -157,7 +158,7 @@ export const postDelete = async (req, res) => {
   const user = await User.findById(_id);
   const ok = await bcrypt.compare(password, user.password);
   if (!ok) {
-    return res.status(400).render("delete", {
+    return res.status(400).render("users/delete", {
       pageTitle: "Sign out",
       errorMessage: "비밀번호가 올바르지 않습니다.",
     });

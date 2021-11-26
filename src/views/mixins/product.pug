@@ -1,8 +1,10 @@
 mixin product(product)
 	a(href=`/products/${product.id}`).product-mixin
 		div.product-mixin__thumb
-			img.product-mixin__thumb(style=`width:100%; height:100%; background-position:center;`, src=product.fileUrl)
-		div.product-mixin__data
-			span.product-mixin__title=product.title 
-		div.remaining-period
-			span.product-remaining=product.createdAt
+			img.product-mixin__thumb(src=product.fileUrl)
+		div.product-mixin__title
+			span.product-mixin__title #{product.title}
+		div.product-minin__price
+			span.product-minin__price ₩#{product.price}~
+		div.product-minin__period
+			span.product-minin__period=product.createdAt

@@ -1,0 +1,16 @@
+extends ../base
+include ../mixins/product
+
+block content 
+	include ../components/category
+	div.products-grid
+		each product in products
+			+product(product)
+			+product(product)
+			+product(product)
+			+product(product)
+			+product(product)
+			+product(product)
+			+product(product)
+		else
+			span.empty__message No products found 

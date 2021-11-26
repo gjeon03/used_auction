@@ -1,5 +1,5 @@
 import express from "express";
-import { home } from "../controllers/productController";
+import { category, home } from "../controllers/productController";
 import {
   getJoin,
   postJoin,
@@ -10,6 +10,7 @@ import {
 const rootRouter = express.Router();
 
 rootRouter.get("/", home);
+rootRouter.get("/category/:category", category);
 rootRouter.route("/join").get(getJoin).post(postJoin);
 rootRouter.route("/login").get(getLogin).post(postLogin);
 

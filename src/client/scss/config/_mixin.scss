@@ -1,0 +1,12 @@
+@mixin small_window {
+  @media (max-width: 730px) {
+    @content;
+  }
+}
+
+@mixin text_line_limit {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

@@ -1,7 +1,7 @@
-extends base
+extends ../base
 
 block content
-	div.page_title #{pageTitle}
+	div.pageTitle #{pageTitle}
 	form(method="POST").edit-profile__form
 		label(for="avatar") Avatar
 		input(type="file", id="avatar", name="avatar", accept="image/*")
@@ -9,7 +9,7 @@ block content
 		input(placeholder="Username", name="username", type="text", required, disabled, value=loggedInUser.username)
 		input(placeholder="Address", type="address", name="address", required, value=loggedInUser.address)
 		input(placeholder="Detailed Address", type="address", name="address2", required, value=loggedInUser.address2)
-		input(type="submit", value="Update Profile")
+		button.form_submit Update Profile
 		if !loggedInUser.socialOnly
 			div.edit-profile__password
 				a(href="change-password") 비밀번호 변경 &rarr;

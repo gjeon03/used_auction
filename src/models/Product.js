@@ -16,8 +16,7 @@ const fakeDb = [
     owner: "gilddong@naver.com",
     title: "ipod",
     description: "happy apple",
-    start: 3000,
-    end: 15000,
+    price: 3000,
     buyer: "gjeon03@gmail.com",
     fileUrl:
       "https://images.unsplash.com/photo-1631229039588-c852e3dc0287?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxfDB8MXxyYW5kb218MHx8fHx8fHx8MTYzMTgwODYwNA&ixlib=rb-1.2.1&q=80&w=1080",

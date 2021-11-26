@@ -1,0 +1,31 @@
+extends ../base
+
+block content
+	div.upload__container
+		if errorMessage
+			span=errorMessage
+		div.pageTitle=pageTitle
+		form(method="POST", enctype="multipart/form-data")
+			label(for="photo") Photo File
+			input(type="file", accept="image/*", required, id="photo", name="photo[]", multiple)
+			input(placeholder="Title", required, type="text", name="title", maxlength=80)
+			textarea.form_des(placeholder="Description", required, name="description", minlength=20)
+			input(placeholder="Starting Price", required, type="number", name="price")
+			span.form_index 원
+			select#form_select(name="term", required)
+				option(value="") 경매 기간 선택
+				option(value="1") 1 일
+				option(value="2") 2 일
+				option(value="3") 3 일
+				option(value="4") 4 일
+			select#form_select(name="category", required)
+				option(value="") 카테고리 선택
+				option(value="fashion") 패션
+				option(value="beauty") 뷰티
+				option(value="sports") 스포츠
+				option(value="furniture") 가구/인테리어
+				option(value="life") 생활
+				option(value="digital") 디지털
+				option(value="books") 도서/취미
+				option(value="other") 기타
+			button.form_submit Upload Product
