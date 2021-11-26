@@ -9,6 +9,7 @@ const userSchema = new mongoose.Schema({
   password: { type: String },
   address: { type: String },
   address2: { type: String },
+  products: [{ type: mongoose.Schema.Types.ObjectId, ref: "Product" }],
 });
 
 userSchema.pre("save", async function () {

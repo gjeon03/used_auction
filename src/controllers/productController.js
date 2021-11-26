@@ -1,15 +1,17 @@
-import fakeDb from "../models/Product";
+import Product from "../models/Product";
 
 //Home
-export const home = (req, res) => {
-  return res.render("layouts/home", { pageTitle: "HOME", products: fakeDb });
+export const home = async (req, res) => {
+  const products = await Product.find({})
+    .sort({ createdAt: "desc" })
+    .populate("owner");
+  return res.render("layouts/home", { pageTitle: "HOME", products });
 };
 
 //Category
 export const category = (req, res) => {
   return res.render("layouts/home", {
     pageTitle: "CATEGORY",
-    products: fakeDb,
   });
 };
 
@@ -23,7 +25,34 @@ export const getUpload = (req, res) => {
   return res.render("layouts/upload", { pageTitle: "UPLOAD PRODUCT" });
 };
 
-export const postUpload = (req, res) => {};
+export const postUpload = async (req, res) => {
+  const {
+    user: { _id },
+  } = req.session;
+  const { photo } = req.files;
+  const { title, description, price, period, category } = req.body;
+  try {
+    const newProduct = await Product.create({
+      title,
+      description,
+      fileUrl: photo[0].path,
+      price,
+      period: Product.periodCalculate(period),
+      category,
+      owner: _id,
+    });
+    const user = await User.findById(_id);
+    user.products.push(newProduct._id);
+    user.save();
+    return res.redirect("/");
+  } catch (error) {
+    console.log(error);
+    return res.status(400).render("upload", {
+      pageTitle: "UPLOAD PRODUCT",
+      errorMessage: error._message,
+    });
+  }
+};
 
 //Edit
 export const getEdit = (req, res) => {};
@@ -31,6 +60,8 @@ export const getEdit = (req, res) => {};
 export const postEdit = (req, res) => {};
 
 //Delete
-export const getDelete = (req, res) => {};
+export const getDelete = (req, res) => {
+  return res.render("layouts/delete", { pageTitle: "DELETE PRODUCT" });
+};
 
 export const postDelete = (req, res) => {};
