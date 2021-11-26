@@ -1,4 +1,5 @@
 import Product from "../models/Product";
+import User from "../models/User";
 
 //Home
 export const home = async (req, res) => {
@@ -27,15 +28,17 @@ export const getUpload = (req, res) => {
 
 export const postUpload = async (req, res) => {
   const {
-    user: { _id },
-  } = req.session;
-  const { photo } = req.files;
+    session: {
+      user: { _id },
+    },
+    files,
+  } = req;
   const { title, description, price, period, category } = req.body;
   try {
     const newProduct = await Product.create({
       title,
       description,
-      fileUrl: photo[0].path,
+      fileUrl: Product.photoArrayPath(files),
       price,
       period: Product.periodCalculate(period),
       category,
@@ -47,7 +50,7 @@ export const postUpload = async (req, res) => {
     return res.redirect("/");
   } catch (error) {
     console.log(error);
-    return res.status(400).render("upload", {
+    return res.status(400).render("layouts/upload", {
       pageTitle: "UPLOAD PRODUCT",
       errorMessage: error._message,
     });

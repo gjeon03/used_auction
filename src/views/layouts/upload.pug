@@ -2,14 +2,14 @@ extends ../base
 
 block content
 	div.upload__container
+		div.pageTitle=pageTitle
 		if errorMessage
 			span=errorMessage
-		div.pageTitle=pageTitle
 		form(method="POST", enctype="multipart/form-data")
 			label(for="photo") Photo File
-			input(type="file", accept="image/*", required, id="photo", name="photo[]", multiple)
+			input(type="file", accept="image/*", required, id="photo", name="photo", multiple)
 			input(placeholder="Title", required, type="text", name="title", maxlength=80)
-			textarea.form_des(placeholder="Description", required, name="description", minlength=20)
+			textarea.form_des(placeholder="Description", required, name="description", minlength=10)
 			input(placeholder="Starting Price", required, type="number", name="price")
 			span.form_index 원
 			select#form_select(name="period", required)

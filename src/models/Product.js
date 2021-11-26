@@ -2,8 +2,8 @@ import mongoose from "mongoose";
 
 const productSchema = new mongoose.Schema({
   title: { type: String, required: true, trim: true, maxLength: 80 },
-  fileUrl: { type: String, required: true },
-  description: { type: String, required: true, trim: true, minLength: 20 },
+  fileUrl: [{ type: String, required: true }],
+  description: { type: String, required: true, trim: true, minLength: 10 },
   price: { type: Number, required: true },
   period: { type: Date, required: true },
   category: { type: String, required: true },
@@ -17,8 +17,16 @@ const productSchema = new mongoose.Schema({
 
 productSchema.static("periodCalculate", function (period) {
   let date = new Date();
-  date.setDate(date.getDate + period);
-  return date;
+  date.setDate(date.getDate() + Number(period));
+  return date.getTime();
+});
+
+productSchema.static("photoArrayPath", function (fileUrl) {
+  const result = [];
+  for (const item of fileUrl) {
+    result.push(item.path);
+  }
+  return result;
 });
 
 const Product = mongoose.model("Product", productSchema);
