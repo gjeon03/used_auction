@@ -82,7 +82,7 @@ export const postEdit = async (req, res) => {
   const updatedUser = await User.findByIdAndUpdate(
     _id,
     {
-      avatarUrl: file ? file.location : avatarUrl,
+      avatarUrl: file ? file.path : avatarUrl,
       address,
       address2,
     },
@@ -145,7 +145,7 @@ export const postChangePassword = async (req, res) => {
 
 //Delete
 export const getDelete = (req, res) => {
-  return res.render("users/delete", { pageTitle: "Sign out" });
+  return res.render("layouts/delete", { pageTitle: "SIGN OUT" });
 };
 
 export const postDelete = async (req, res) => {
@@ -158,8 +158,8 @@ export const postDelete = async (req, res) => {
   const user = await User.findById(_id);
   const ok = await bcrypt.compare(password, user.password);
   if (!ok) {
-    return res.status(400).render("users/delete", {
-      pageTitle: "Sign out",
+    return res.status(400).render("layouts/delete", {
+      pageTitle: "SIGN OUT",
       errorMessage: "비밀번호가 올바르지 않습니다.",
     });
   }

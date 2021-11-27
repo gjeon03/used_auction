@@ -1,7 +1,9 @@
-extends base
+extends ../base
 
 block content 
-	div.page_title #{pageTitle}
+	div.pageTitle #{pageTitle}
+	if errorMessage
+		span=errorMessage
 	form(method="POST")
 		input(placeholder="Password", name="password", type="password", required)
-		input(type="submit", value="탈퇴") 
+		button.form_submit 탈퇴하기

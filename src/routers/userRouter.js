@@ -10,10 +10,14 @@ import {
   getBidList,
   logout,
 } from "../controllers/userController";
+import { avatarUpload } from "../middlewares";
 
 const userRouter = express.Router();
 
-userRouter.route("/edit").get(getEdit).post(postEdit);
+userRouter
+  .route("/edit")
+  .get(getEdit)
+  .post(avatarUpload.single("avatar"), postEdit);
 userRouter.route("/delete").get(getDelete).post(postDelete);
 userRouter
   .route("/change-password")

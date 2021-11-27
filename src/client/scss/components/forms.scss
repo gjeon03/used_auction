@@ -25,6 +25,14 @@ form {
       color: rgba(255, 255, 255, 0.7);
     }
   }
+  .edit-profile__password,
+  .sign_out {
+    color: #894a5e;
+    padding: 5px;
+  }
+  .form_avatar_label {
+    color: #894a5e;
+  }
 }
 
 input:not(input[type="range"]),
@@ -46,8 +54,6 @@ input:not(input[type="range"]),
 }
 
 .social__btn,
-.edit-profile__password,
-.sign_out,
 .form_submit,
 #form_select {
   border-radius: 5px;
