@@ -11,6 +11,9 @@ import { localsMiddleware } from "./middlewares";
 const app = express();
 const logger = morgan("dev");
 
+let cors = require("cors");
+app.use(cors());
+
 app.set("view engine", "pug");
 app.set("views", path.join(__dirname, "views"));
 app.use(logger);
@@ -26,6 +29,7 @@ app.use(
 );
 app.use(localsMiddleware);
 app.use("/uploads", express.static("uploads"));
+app.use("/img", express.static("img"));
 app.use("/static", express.static("assets"));
 app.use("/", rootRouter);
 app.use("/users", userRouter);

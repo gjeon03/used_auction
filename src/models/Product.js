@@ -15,6 +15,7 @@ const productSchema = new mongoose.Schema({
   },
   owner: { type: mongoose.Schema.Types.ObjectId, required: true, ref: "User" },
   buyer: { type: String },
+  endCheck: { type: Boolean, default: false },
 });
 
 productSchema.static("periodCalculate", function (period) {

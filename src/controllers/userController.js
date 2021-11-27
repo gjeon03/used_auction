@@ -1,5 +1,8 @@
 import User from "../models/User";
 import bcrypt from "bcrypt";
+import fetch from "node-fetch";
+import { Octokit } from "@octokit/core";
+import Product from "../models/Product";
 
 //Join
 export const getJoin = (req, res) => {
@@ -7,7 +10,8 @@ export const getJoin = (req, res) => {
 };
 
 export const postJoin = async (req, res) => {
-  const { email, username, password, password2, address, address2 } = req.body;
+  const { email, name, username, password, password2, address, address2 } =
+    req.body;
   const pageTitle = "JOIN";
   if (password !== password2) {
     return res.status(400).render("layouts/join", {
@@ -25,6 +29,7 @@ export const postJoin = async (req, res) => {
   try {
     await User.create({
       username,
+      name,
       email,
       password,
       address,
@@ -155,14 +160,32 @@ export const postDelete = async (req, res) => {
     },
     body: { password },
   } = req;
-  const user = await User.findById(_id);
-  const ok = await bcrypt.compare(password, user.password);
-  if (!ok) {
-    return res.status(400).render("layouts/delete", {
-      pageTitle: "SIGN OUT",
-      errorMessage: "비밀번호가 올바르지 않습니다.",
-    });
+  const user = await User.findById(_id).populate("products");
+  if (!user.social.socialOnly) {
+    const ok = await bcrypt.compare(password, user.password);
+    if (!ok) {
+      return res.status(400).render("layouts/delete", {
+        pageTitle: "SIGN OUT",
+        errorMessage: "비밀번호가 올바르지 않습니다.",
+      });
+    }
+  } else {
+    //social sign out
+    switch (user.social.socialName) {
+      case "github":
+        break;
+      case "kakao":
+        break;
+    }
   }
+  //Product DB Delete
+  for (const item of user.products) {
+    const product = await Product.findById(item._id);
+    if (!product.endCheck) {
+      await Product.findByIdAndDelete(item._id);
+    }
+  }
+  //User DB Delete
   await User.findByIdAndDelete(_id);
   req.session.user = null;
   res.locals.loggedInUser = req.session.user;
@@ -175,3 +198,161 @@ export const getBidList = (req, res) => {};
 
 //Profile
 export const profile = (req, res) => {};
+
+export const startGithubLogin = (req, res) => {
+  const baseUrl = "https://github.com/login/oauth/authorize";
+  const config = {
+    client_id: process.env.GH_CLIENT,
+    allow_signup: false,
+    scope: "read:user user:email",
+  };
+  const params = new URLSearchParams(config).toString();
+  const finalUrl = `${baseUrl}?${params}`;
+  return res.redirect(finalUrl);
+};
+
+export const finishGithubLogin = async (req, res) => {
+  const baseUrl = "https://github.com/login/oauth/access_token";
+  const config = {
+    client_id: process.env.GH_CLIENT,
+    client_secret: process.env.GH_SECRET,
+    code: req.query.code,
+  };
+  const params = new URLSearchParams(config).toString();
+  const finalUrl = `${baseUrl}?${params}`;
+  const tokenRequest = await (
+    await fetch(finalUrl, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+      },
+    })
+  ).json();
+  // const { access_token } = tokenRequest;
+  // const clientId = process.env.GH_ASSESS_TOKEN;
+  // const octokit = new Octokit({ auth: clientId });
+  // await octokit.request(`DELETE /applications/${clientId}/grant`, {
+  //   client_id: "client_id",
+  //   access_token: "access_token",
+  // });
+  if ("access_token" in tokenRequest) {
+    const { access_token } = tokenRequest;
+    const apiUrl = "https://api.github.com";
+    const userData = await (
+      await fetch(`${apiUrl}/user`, {
+        headers: {
+          Authorization: `token ${access_token}`,
+        },
+      })
+    ).json();
+    const emailData = await (
+      await fetch(`${apiUrl}/user/emails`, {
+        headers: {
+          Authorization: `token ${access_token}`,
+        },
+      })
+    ).json();
+    const emailObj = emailData.find(
+      (email) => email.primary === true && email.verified === true
+    );
+    if (!emailObj) {
+      return res.redirect("/login");
+    }
+    let user = await User.findOne({ email: emailObj.email });
+    if (!user) {
+      user = await User.create({
+        avatarUrl: userData.avatar_url,
+        name: userData.name ? userData.name : userData.login,
+        username: userData.login,
+        email: emailObj.email,
+        password: "",
+        social: { socialOnly: true, socialName: "github" },
+      });
+    }
+    req.session.loggedIn = true;
+    req.session.user = user;
+    return res.redirect("/");
+  } else {
+    return res.redirect("/login");
+  }
+  //return res.redirect("/");
+};
+
+export const startKakaoLogin = (req, res) => {
+  const baseUrl = "https://kauth.kakao.com/oauth/authorize";
+  const config = {
+    client_id: process.env.KAKAO_KEY,
+    redirect_uri: "http://localhost:4500/users/kakao/finish",
+    response_type: "code",
+    scope: "profile_image profile_nickname account_email",
+  };
+  const params = new URLSearchParams(config).toString();
+  const finalUrl = `${baseUrl}?${params}`;
+  return res.redirect(finalUrl);
+};
+
+export const finishKakaoLogin = async (req, res) => {
+  const baseUrl = "https://kauth.kakao.com/oauth/token";
+  const config = {
+    client_id: process.env.KAKAO_KEY,
+    client_secret: process.env.KAKAO_SECRET,
+    code: req.query.code,
+    grant_type: "authorization_code",
+    redirect_uri: "http://localhost:4500/users/kakao/finish",
+  };
+  const params = new URLSearchParams(config).toString();
+  const finalUrl = `${baseUrl}?${params}`;
+  const tokenRequest = await (
+    await fetch(finalUrl, {
+      method: "POST",
+      headers: {
+        "content-type": "application/x-www-form-urlencoded",
+      },
+    })
+  ).json();
+  if ("access_token" in tokenRequest) {
+    const { access_token } = tokenRequest;
+    const apiUrl = "https://kapi.kakao.com";
+    const userData = await (
+      await fetch(`${apiUrl}/v2/user/me`, {
+        headers: {
+          Authorization: `Bearer ${access_token}`,
+        },
+      })
+    ).json();
+    console.log(userData);
+    const {
+      id,
+      properties: { nickname, profile_image },
+      kakao_account: { email },
+    } = userData;
+    if (!email) {
+      await fetch("https://kapi.kakao.com/v1/user/unlink", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${access_token}`,
+        },
+      });
+      return res.render("layouts/login", {
+        pageTitle: "LOGIN",
+        errorMessage: "이메일 정보 제공에 동의해주세요.",
+      });
+    }
+    let user = await User.findOne({ email });
+    if (!user) {
+      user = await User.create({
+        avatarUrl: profile_image,
+        name: nickname,
+        username: id,
+        email,
+        password: "",
+        social: { socialOnly: true, socialName: "kakao" },
+      });
+    }
+    req.session.loggedIn = true;
+    req.session.user = user;
+    return res.redirect("/");
+  } else {
+    return res.redirect("/login");
+  }
+};

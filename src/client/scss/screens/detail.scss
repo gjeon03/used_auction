@@ -57,7 +57,8 @@
         }
       }
       .product_owner,
-      .product_buyer {
+      .product_buyer,
+      .product_category {
         display: flex;
         justify-content: space-between;
         border-bottom: solid 1px #000000;
@@ -107,7 +108,8 @@
       .product_info,
       .product_price,
       .product_toBid,
-      .product_day_info {
+      .product_day_info,
+      .product_category {
         padding: 10px;
       }
     }

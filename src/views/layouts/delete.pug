@@ -5,5 +5,6 @@ block content
 	if errorMessage
 		span=errorMessage
 	form(method="POST")
-		input(placeholder="Password", name="password", type="password", required)
+		if !loggedInUser.social.socialOnly
+			input(placeholder="Password", name="password", type="password", required)
 		button.form_submit 탈퇴하기

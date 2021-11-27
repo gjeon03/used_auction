@@ -10,7 +10,7 @@ block content
 		input(placeholder="Address", type="address", name="address", required, value=loggedInUser.address)
 		input(placeholder="Detailed Address", type="address", name="address2", required, value=loggedInUser.address2)
 		button.form_submit Update Profile
-		if !loggedInUser.socialOnly
+		if !loggedInUser.social.socialOnly
 			div.edit-profile__password
 				a(href="change-password") 비밀번호 변경 &rarr;
 		div.sign_out 
