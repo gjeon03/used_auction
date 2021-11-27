@@ -12,6 +12,7 @@
 
 // Screens
 @import "./screens/home";
+@import "./screens/detail";
 
 // Defaults
 
@@ -34,6 +35,6 @@ main {
 
 .pageTitle {
   font-size: 40px;
-  margin: 0 50px 50px;
+  margin: 20px 50px 50px;
   border-bottom: solid 3px #000000;
 }

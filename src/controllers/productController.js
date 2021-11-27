@@ -17,8 +17,13 @@ export const category = (req, res) => {
 };
 
 //Detail
-export const detail = (req, res) => {
-  return res.render("layouts/detail", { pageTitle: "detail" });
+export const detail = async (req, res) => {
+  const { id } = req.params;
+  const product = await Product.findById(id).populate("owner");
+  if (!product) {
+    return res.render("404", { pageTitle: "Product not found" });
+  }
+  return res.render("layouts/detail", { pageTitle: product.title, product });
 };
 
 //Upload
@@ -33,13 +38,14 @@ export const postUpload = async (req, res) => {
     },
     files,
   } = req;
-  const { title, description, price, period, category } = req.body;
+  const { title, description, startPrice, period, category } = req.body;
   try {
     const newProduct = await Product.create({
       title,
       description,
       fileUrl: Product.photoArrayPath(files),
-      price,
+      startPrice,
+      currentPrice: startPrice,
       period: Product.periodCalculate(period),
       category,
       owner: _id,
