@@ -10,13 +10,35 @@ export const home = async (req, res) => {
 };
 
 //Category
+const categoryK = (categoryE) => {
+  switch (categoryE) {
+    case "fashion":
+      return "패션";
+    case "beauty":
+      return "뷰티";
+    case "sports":
+      return "스포츠";
+    case "furniture":
+      return "가구/인테리어";
+    case "life":
+      return "생활";
+    case "digital":
+      return "디지털";
+    case "books":
+      return "도서/취미";
+    case "other":
+      return "기타";
+  }
+};
+
 export const category = async (req, res) => {
   const { category } = req.params;
   let products = [];
   if (category) {
+    const categoryName = categoryK(category);
     products = await Product.find({
       category: {
-        $regex: new RegExp(`${category}`, "i"),
+        $regex: new RegExp(`${categoryName}`, "i"),
       },
     }).populate("owner");
   }
