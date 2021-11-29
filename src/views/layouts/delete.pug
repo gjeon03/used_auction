@@ -5,6 +5,6 @@ block content
 	if errorMessage
 		span=errorMessage
 	form(method="POST")
-		if !loggedInUser.social.socialOnly
+		if !loggedInUser.social.socialOnly && btnName != "Delete"
 			input(placeholder="Password", name="password", type="password", required)
-		button.form_submit 탈퇴하기
+		button.form_submit=btnName

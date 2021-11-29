@@ -150,7 +150,10 @@ export const postChangePassword = async (req, res) => {
 
 //Delete
 export const getDelete = (req, res) => {
-  return res.render("layouts/delete", { pageTitle: "SIGN OUT" });
+  return res.render("layouts/delete", {
+    pageTitle: "SIGN OUT",
+    btnName: "Sign out",
+  });
 };
 
 export const postDelete = async (req, res) => {

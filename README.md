@@ -22,8 +22,8 @@
 
 - detail[o]
 - upload[o]
-- edit[]
-- delete[]
+- edit[o]
+- delete[o]
 - comment[]
 
 ### js
@@ -31,3 +31,8 @@
 - product update description[]
 - product detail description[]
 - product time[]
+- to bid[]
+
+### midllewares
+
+- user address check[]

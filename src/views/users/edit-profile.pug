@@ -11,7 +11,7 @@ block content
 		input(placeholder="Detailed Address", type="address", name="address2", required, value=loggedInUser.address2)
 		button.form_submit Update Profile
 		if !loggedInUser.social.socialOnly
-			div.edit-profile__password
+			div.form_rarr_btn
 				a(href="change-password") 비밀번호 변경 &rarr;
-		div.sign_out 
+		div.form_rarr_btn 
 			a(href="delete") 회원탈퇴 &rarr;

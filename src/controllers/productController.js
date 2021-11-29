@@ -143,7 +143,28 @@ export const postEdit = async (req, res) => {
 
 //Delete
 export const getDelete = (req, res) => {
-  return res.render("layouts/delete", { pageTitle: "DELETE PRODUCT" });
+  return res.render("layouts/delete", {
+    pageTitle: "DELETE PRODUCT",
+    btnName: "Delete",
+  });
 };
 
-export const postDelete = (req, res) => {};
+export const postDelete = async (req, res) => {
+  const {
+    session: {
+      user: { _id },
+    },
+    params: { id },
+  } = req;
+  const product = await Product.findById(id);
+  if (String(product.owner) !== String(_id)) {
+    return res.status(403).redirect("/");
+  }
+  //Product DB Delete
+  await Product.findByIdAndDelete(id);
+  //User DB Delete
+  const user = await User.findById(_id);
+  user.products.splice(user.products.indexOf(id), 1);
+  await user.save();
+  return res.redirect("/");
+};
