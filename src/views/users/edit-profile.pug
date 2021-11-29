@@ -3,7 +3,7 @@ extends ../base
 block content
 	div.pageTitle #{pageTitle}
 	form(method="POST", enctype="multipart/form-data").edit-profile__form
-		label(for="avatar").form_avatar_label 프로필 사진
+		label(for="avatar").form_avatar_label Photo File
 		input(type="file", id="avatar", name="avatar", accept="image/*")
 		input(placeholder="Email", name="email", type="email", required, disabled, value=loggedInUser.email)
 		input(placeholder="Username", name="username", type="text", required, disabled, value=loggedInUser.username)

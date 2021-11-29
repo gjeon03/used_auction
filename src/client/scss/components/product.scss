@@ -5,9 +5,10 @@
   align-items: center;
   padding: 10px;
   border-radius: 10px;
+  background-color: #ffffff;
   @include box_shadow;
   .product-mixin__thumb {
-    height: 200px;
+    height: 300px;
     width: 100%;
     img {
       width: 100%;

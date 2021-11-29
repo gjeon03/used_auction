@@ -1,0 +1,34 @@
+.profile__data {
+  max-width: 800px;
+  height: 300px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  margin-bottom: 50px;
+  border-radius: 150px;
+  @include box_shadow;
+  background-color: #ffffff;
+  gap: 20px;
+  img {
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    @include box_shadow;
+  }
+  .profile__data_form {
+    width: 400px;
+    font-size: 17px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    .profile__data_box {
+      border-radius: 20px;
+      display: grid;
+      grid-template-columns: 1.5fr 2fr;
+      padding: 10px;
+      margin-bottom: 4px;
+      background-color: #f9fafb;
+      @include box_shadow;
+    }
+  }
+}

@@ -1,0 +1,37 @@
+extends ../base
+include ../mixins/product
+
+block content
+	div.profile__data
+		if !loggedInUser.avatarUrl
+			span 😀
+		else
+			if loggedInUser.social.socialOnly
+				img.header__avatar(src=loggedInUser.avatarUrl)
+			else
+				img.header__avatar(src="/" + loggedInUser.avatarUrl, crossorigin)
+		div.profile__data_form
+			div.profile__data_box
+				div Name
+				div=user.name
+			div.profile__data_box
+				div UserName
+				div=user.username
+			div.profile__data_box
+				div Email
+				div=user.email
+			div.profile__data_box
+				div Address 
+				div=user.address
+			div.profile__data_box
+				div Detailed Address
+				div=user.address2
+			div.profile__data_box
+				div Social Login 
+				if user.social.socialOnly
+					div #{user.social.socialName}
+	div.products-grid
+		each product in user.products
+			+product(product)
+		else
+			span.empty__message No products found 

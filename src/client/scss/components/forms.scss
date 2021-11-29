@@ -3,9 +3,10 @@ form:not(.desiredPrice):not(.search__form) {
   margin: 0 auto;
   position: relative;
   padding: 30px;
-  background-color: rgba($color: #f4dce4, $alpha: 0.7);
+  background-color: #ffffff;
   border-radius: 10px;
   border: 1px solid rgba($color: #ddb3c1, $alpha: 0.1);
+  @include box_shadow;
   .form_index {
     width: 50px;
     height: 50px;
@@ -14,17 +15,13 @@ form:not(.desiredPrice):not(.search__form) {
     font-size: 20px;
     text-align: center;
     line-height: 50px;
-    color: white;
+    color: #000000;
   }
   .form_des {
-    height: 120px;
     resize: none;
     &::placeholder {
-      color: rgba(255, 255, 255, 0.7);
+      color: #000000;
     }
-  }
-  .form_avatar_label {
-    color: #894a5e;
   }
   input:not(input[type="range"]),
   .form_submit,
@@ -34,27 +31,28 @@ form:not(.desiredPrice):not(.search__form) {
     padding: 15px 20px;
     border-radius: 5px;
     border: 1px solid rgba(255, 255, 255, 0.2);
-    background-color: #ddb3c1;
+    background-color: #f9fafb;
     margin-bottom: 5px;
     font-size: 16px;
-    color: white;
+    color: #000000;
     width: 90%;
+    @include box_shadow;
+    border: solid 1px #dddedf;
     &::placeholder {
-      color: rgba(255, 255, 255, 0.7);
+      color: #9b9b9b;
     }
   }
-  .social__btn:not(.social__btn--kakao),
   .form_submit,
   #form_select {
     border-radius: 5px;
     padding: 12px 20px;
     background-color: white !important;
-    color: rgba($color: #ddb3c1, $alpha: 1) !important;
+    color: #9b9b9b !important;
     text-align: center !important;
     cursor: pointer;
-    display: block;
-    border: none;
+    border: solid 1px #dddedf;
     margin-bottom: 5px;
+    @include box_shadow;
     &:focus {
       outline: none;
     }
@@ -62,6 +60,10 @@ form:not(.desiredPrice):not(.search__form) {
       opacity: 0.5;
       pointer-events: none;
     }
+  }
+  .form_submit {
+    background-color: #000000 !important;
+    color: #ffffff !important;
   }
 }
 
@@ -72,6 +74,10 @@ input[type="number"]::-webkit-inner-spin-button {
 }
 
 .form_rarr_btn {
-  color: #894a5e;
+  color: #a50000;
   padding: 5px;
+}
+
+.social__btn--github {
+  color: #000000 !important;
 }

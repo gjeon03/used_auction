@@ -6,7 +6,7 @@ export const home = async (req, res) => {
   const products = await Product.find({})
     .sort({ createdAt: "desc" })
     .populate("owner");
-  return res.render("layouts/home", { pageTitle: "HOME", products });
+  return res.render("home", { pageTitle: "HOME", products });
 };
 
 //Category
@@ -42,7 +42,7 @@ export const category = async (req, res) => {
       },
     }).populate("owner");
   }
-  return res.render("layouts/home", {
+  return res.render("home", {
     pageTitle: "CATEGORY",
     products,
   });
@@ -55,12 +55,12 @@ export const detail = async (req, res) => {
   if (!product) {
     return res.render("404", { pageTitle: "Product not found" });
   }
-  return res.render("layouts/detail", { pageTitle: product.title, product });
+  return res.render("products/detail", { pageTitle: product.title, product });
 };
 
 //Upload
 export const getUpload = (req, res) => {
-  return res.render("layouts/upload", { pageTitle: "UPLOAD PRODUCT" });
+  return res.render("products/upload", { pageTitle: "UPLOAD PRODUCT" });
 };
 
 export const postUpload = async (req, res) => {
@@ -88,7 +88,7 @@ export const postUpload = async (req, res) => {
     return res.redirect("/");
   } catch (error) {
     console.log(error);
-    return res.status(400).render("layouts/upload", {
+    return res.status(400).render("products/upload", {
       pageTitle: "UPLOAD PRODUCT",
       errorMessage: error._message,
     });
@@ -109,7 +109,7 @@ export const getEdit = async (req, res) => {
     req.flash("error", "Not authorized");
     return res.status(403).redirect("/");
   }
-  return res.render("layouts/edit", {
+  return res.render("products/edit", {
     pageTitle: `UPDATE PRODUCT`,
     product,
   });
@@ -143,7 +143,7 @@ export const postEdit = async (req, res) => {
 
 //Delete
 export const getDelete = (req, res) => {
-  return res.render("layouts/delete", {
+  return res.render("delete", {
     pageTitle: "DELETE PRODUCT",
     btnName: "Delete",
   });
