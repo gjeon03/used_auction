@@ -11,7 +11,6 @@ export const home = async (req, res) => {
         $regex: new RegExp(`${keyword}$`, "i"),
       },
     }).populate("owner");
-    console.log(products);
     return res.render("home", { pageTitle: "SEARCH", products });
   } else {
     const products = await Product.find({})
@@ -47,6 +46,19 @@ export const category = async (req, res) => {
   const { category } = req.params;
   let products = [];
   if (category) {
+    const { keyword } = req.query;
+    if (keyword) {
+      const categoryName = categoryK(category);
+      products = await Product.find({
+        category: {
+          $regex: new RegExp(`${categoryName}`, "i"),
+        },
+        title: {
+          $regex: new RegExp(`${keyword}$`, "i"),
+        },
+      }).populate("owner");
+      return res.render("home", { pageTitle: "SEARCH", products });
+    }
     const categoryName = categoryK(category);
     products = await Product.find({
       category: {
