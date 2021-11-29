@@ -96,9 +96,50 @@ export const postUpload = async (req, res) => {
 };
 
 //Edit
-export const getEdit = (req, res) => {};
+export const getEdit = async (req, res) => {
+  const { id } = req.params;
+  const {
+    user: { _id },
+  } = req.session;
+  const product = await Product.findById(id);
+  if (!product) {
+    return res.status(404).render("404", { pageTitle: "Product not found." });
+  }
+  if (String(product.owner) !== String(_id)) {
+    req.flash("error", "Not authorized");
+    return res.status(403).redirect("/");
+  }
+  return res.render("layouts/edit", {
+    pageTitle: `UPDATE PRODUCT`,
+    product,
+  });
+};
 
-export const postEdit = (req, res) => {};
+export const postEdit = async (req, res) => {
+  const {
+    user: { _id },
+  } = req.session;
+  const { id } = req.params;
+  const { title, description, period, category } = req.body;
+  const product = await Product.findById(id);
+  if (!product) {
+    return res.status(404).render("404", { pageTitle: "Product not found." });
+  }
+  if (String(product.owner) !== String(_id)) {
+    return res.status(403).redirect("/");
+  }
+  console.log(period);
+  const tem = await Product.findByIdAndUpdate(id, {
+    title,
+    description,
+    period: period
+      ? Product.updatePeriodCalculate(product.period, period)
+      : product.period,
+    category: category ? category : product.category,
+  });
+  console.log(tem);
+  return res.redirect(`/products/${id}`);
+};
 
 //Delete
 export const getDelete = (req, res) => {

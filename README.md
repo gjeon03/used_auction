@@ -24,3 +24,10 @@
 - upload[o]
 - edit[]
 - delete[]
+- comment[]
+
+### js
+
+- product update description[]
+- product detail description[]
+- product time[]

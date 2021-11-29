@@ -3,6 +3,9 @@ extends ../base
 block content 
 	include ../components/category
 	div.pageTitle=pageTitle
+	div.edit_product_btn
+		if String(product.owner._id) === String(loggedInUser._id)
+			a(href=`${product.id}/edit`) Edit Product &rarr;
 	div.detail_form
 		div.detail_form_data
 			div#img_container(data-id=product._id)
@@ -40,9 +43,9 @@ block content
 				div.product_day_info
 					div
 						span 경매 시작 날짜
-						div.startDay=new Date(product.createdAt).toLocaleDateString("ko-kr", {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'})
+						div.startDay=new Date(product.createdAt).toLocaleString("ko-kr")
 					div
 						span 경매 종료 날짜
-						div.endDay=new Date(product.period).toLocaleDateString("ko-kr", {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'})
-		div.detail_form_description 설명
+						div.endDay=new Date(product.period).toLocaleString("ko-kr")
+		div.detail_form_description Description
 			div.product_description des

@@ -24,6 +24,12 @@ productSchema.static("periodCalculate", function (period) {
   return date.getTime();
 });
 
+productSchema.static("updatePeriodCalculate", function (existing, period) {
+  let date = new Date(existing);
+  date.setDate(date.getDate() + Number(period));
+  return date.getTime();
+});
+
 productSchema.static("photoArrayPath", function (fileUrl) {
   const result = [];
   for (const item of fileUrl) {
