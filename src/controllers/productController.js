@@ -10,9 +10,19 @@ export const home = async (req, res) => {
 };
 
 //Category
-export const category = (req, res) => {
+export const category = async (req, res) => {
+  const { category } = req.params;
+  let products = [];
+  if (category) {
+    products = await Product.find({
+      category: {
+        $regex: new RegExp(`${category}`, "i"),
+      },
+    }).populate("owner");
+  }
   return res.render("layouts/home", {
     pageTitle: "CATEGORY",
+    products,
   });
 };
 

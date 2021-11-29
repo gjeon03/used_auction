@@ -50,7 +50,7 @@ form:not(.desiredPrice) {
       color: rgba(255, 255, 255, 0.7);
     }
   }
-  .social__btn,
+  .social__btn:not(.social__btn--kakao),
   .form_submit,
   #form_select {
     border-radius: 5px;

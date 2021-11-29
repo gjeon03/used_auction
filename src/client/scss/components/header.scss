@@ -3,6 +3,9 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  background-color: #ffffff;
+  margin-bottom: 20px;
+  @include box_shadow;
   .header__logo {
     color: #000000;
     font-size: 40px;

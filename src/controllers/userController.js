@@ -175,6 +175,17 @@ export const postDelete = async (req, res) => {
       case "github":
         break;
       case "kakao":
+        // const target_id = Number(user.username);
+        // const tmp = await fetch("https://kapi.kakao.com/v1/user/unlink", {
+        //   method: "POST",
+        //   headers: {
+        //     "content-type": "application/x-www-form-urlencoded",
+        //     Authorization: `KakaoAK ${process.env.KAKAO_ADMIN}`,
+        //   },
+        //   target_id_type: "user_id",
+        //   target_id,
+        // });
+        // console.log(tmp);
         break;
     }
   }
@@ -356,3 +367,5 @@ export const finishKakaoLogin = async (req, res) => {
     return res.redirect("/login");
   }
 };
+
+export const deleteKakao = (req, res) => {};

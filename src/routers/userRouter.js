@@ -13,6 +13,7 @@ import {
   finishGithubLogin,
   startKakaoLogin,
   finishKakaoLogin,
+  deleteKakao,
 } from "../controllers/userController";
 import {
   avatarUpload,
@@ -39,6 +40,7 @@ userRouter.get("/github/start", publicOnlyMiddleware, startGithubLogin);
 userRouter.get("/github/finish", publicOnlyMiddleware, finishGithubLogin);
 userRouter.get("/kakao/start", publicOnlyMiddleware, startKakaoLogin);
 userRouter.get("/kakao/finish", publicOnlyMiddleware, finishKakaoLogin);
+userRouter.get("/kakao/finish", deleteKakao);
 
 userRouter.get("/:id([0-9a-f]{24})", profile);
 

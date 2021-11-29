@@ -3,6 +3,9 @@
   justify-content: space-between;
   align-items: center;
   padding: 10px 50px;
+  margin-bottom: 20px;
+  background-color: #ffffff;
+  @include box_shadow;
   li {
     display: flex;
     align-items: center;
