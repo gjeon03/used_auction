@@ -1,62 +1,81 @@
-.category {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 50px;
+#category_search {
   margin-bottom: 20px;
-  background-color: #ffffff;
-  @include box_shadow;
-  li {
+  .category {
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    a {
+    padding: 10px 50px;
+    background-color: #ffffff;
+    @include box_shadow;
+    li {
       display: flex;
       align-items: center;
+      a {
+        display: flex;
+        align-items: center;
+      }
+      &:nth-child(1) span {
+        background-color: $fashion;
+      }
+      &:nth-child(2) span {
+        background-color: $beauty;
+      }
+      &:nth-child(3) span {
+        background-color: $sports;
+      }
+      &:nth-child(4) span {
+        background-color: $furniture;
+      }
+      &:nth-child(5) span {
+        background-color: $life;
+      }
+      &:nth-child(6) span {
+        background-color: $digital;
+      }
+      &:nth-child(7) span {
+        background-color: $books;
+      }
+      &:nth-child(8) span {
+        background-color: $other;
+      }
     }
-    &:nth-child(1) span {
-      background-color: $fashion;
+    span {
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      margin-right: 5px;
+      text-align: center;
+      font-size: 15px;
     }
-    &:nth-child(2) span {
-      background-color: $beauty;
-    }
-    &:nth-child(3) span {
-      background-color: $sports;
-    }
-    &:nth-child(4) span {
-      background-color: $furniture;
-    }
-    &:nth-child(5) span {
-      background-color: $life;
-    }
-    &:nth-child(6) span {
-      background-color: $digital;
-    }
-    &:nth-child(7) span {
-      background-color: $books;
-    }
-    &:nth-child(8) span {
-      background-color: $other;
-    }
-    .search_btn {
-      padding: 5px 10px;
-      border-radius: 5px;
-    }
-  }
-  span {
-    width: 15px;
-    height: 15px;
-    border-radius: 50%;
-    margin-right: 5px;
-    text-align: center;
-    font-size: 15px;
-  }
-  label {
-    font-size: 20px;
-    cursor: pointer;
-  }
-  @include small_window {
     label {
-      display: none;
+      font-size: 20px;
+      cursor: pointer;
+    }
+    @include small_window {
+      label {
+        display: none;
+      }
+    }
+  }
+  #search_box {
+    display: none;
+    form {
+      height: 40px;
+      display: flex;
+      justify-content: center;
+      margin-top: 5px;
+      input {
+        font-size: 20px;
+        text-align: center;
+        @include box_shadow;
+      }
+      input[type="text"] {
+        width: 300px;
+        border-radius: 20px 0 0 20px;
+      }
+      input[type="submit"] {
+        border-radius: 0 20px 20px 0;
+      }
     }
   }
 }

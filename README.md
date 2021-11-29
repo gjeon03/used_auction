@@ -5,7 +5,7 @@
 ### User
 
 - edit profile[o]
-- delete[]
+- delete[o]
 - change password[o]
 - bid list[]
 - profile[]
@@ -14,12 +14,13 @@
 ### Main
 
 - home[o]
+- search[]
 - login[o]
 - join[o]
 
 ### Product
 
-- detail[]
+- detail[o]
 - upload[o]
 - edit[]
 - delete[]
