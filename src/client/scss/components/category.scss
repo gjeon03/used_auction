@@ -58,7 +58,6 @@
     }
   }
   #search_box {
-    display: none;
     form {
       height: 40px;
       display: flex;
@@ -66,15 +65,18 @@
       margin-top: 5px;
       input {
         font-size: 20px;
-        text-align: center;
         @include box_shadow;
       }
       input[type="text"] {
         width: 300px;
+        padding-left: 20px;
         border-radius: 20px 0 0 20px;
+        border: solid 1px #000000;
+        margin-right: 2px;
       }
       input[type="submit"] {
         border-radius: 0 20px 20px 0;
+        border: solid 1px #000000;
       }
     }
   }

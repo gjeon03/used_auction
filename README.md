@@ -8,7 +8,7 @@
 - delete[o]
 - change password[o]
 - bid list[]
-- profile[]
+- profile[o]
 - logout[o]
 
 ### Main

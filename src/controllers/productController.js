@@ -3,10 +3,22 @@ import User from "../models/User";
 
 //Home
 export const home = async (req, res) => {
-  const products = await Product.find({})
-    .sort({ createdAt: "desc" })
-    .populate("owner");
-  return res.render("home", { pageTitle: "HOME", products });
+  const { keyword } = req.query;
+  if (keyword) {
+    let products = [];
+    products = await Product.find({
+      title: {
+        $regex: new RegExp(`${keyword}$`, "i"),
+      },
+    }).populate("owner");
+    console.log(products);
+    return res.render("home", { pageTitle: "SEARCH", products });
+  } else {
+    const products = await Product.find({})
+      .sort({ createdAt: "desc" })
+      .populate("owner");
+    return res.render("home", { pageTitle: "HOME", products });
+  }
 };
 
 //Category
