@@ -33,9 +33,11 @@ nav
 				a(href="/category/other") 
 					span O
 					label 기타
-			li.search_btn 
+			li#search_btn 
 				i.fas.fa-search
 		div#search_box
 			form(method="GET").search__form
 				input(placeholder="Please enter your search term", type="text", name="keyword", required) 
 				input(type="submit", value="Search")
+block scripts
+	script(src="/static/js/categorySection.js") 

@@ -8,7 +8,8 @@ module.exports = {
     main: BASE_JS + "main.js",
     commentSection: BASE_JS + "commentSection.js",
     detail: BASE_JS + "detail.js",
-    category: BASE_JS + "category.js",
+    categorySection: BASE_JS + "categorySection.js",
+    productTimeSection: BASE_JS + "productTimeSection.js",
   },
   plugins: [
     new MiniCssExtractPlugin({

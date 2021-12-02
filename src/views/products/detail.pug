@@ -21,9 +21,9 @@ block content
 						div.product_bidsCount
 							span 입찰 건수
 							div#bidsCount=product.meta.bidsCount
-						div.product_period
+						div.product_data(data-id=product.period)
 							span 남은 시간
-							div#period
+							div.product__period
 					div.product_category
 						span 카테고리
 						div=product.category
@@ -69,5 +69,6 @@ block content
 			div
 block scripts 
 	script(src="/static/js/detail.js") 
+	script(src="/static/js/productTimeSection.js") 
 	if loggedIn
 		script(src="/static/js/commentSection.js") 

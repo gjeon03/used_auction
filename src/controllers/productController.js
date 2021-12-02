@@ -14,7 +14,7 @@ export const home = async (req, res) => {
     }).populate("owner");
     return res.render("home", { pageTitle: "SEARCH", products });
   } else {
-    const products = await Product.find({})
+    let products = await Product.find({})
       .sort({ createdAt: "desc" })
       .populate("owner");
     return res.render("home", { pageTitle: "HOME", products });

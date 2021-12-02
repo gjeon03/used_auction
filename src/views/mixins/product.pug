@@ -1,10 +1,11 @@
 mixin product(product)
-	a(href=`/products/${product.id}`).product-mixin
-		div.product-mixin__thumb
-			img.product-mixin__thumb(src="/" + product.fileUrl[0], crossorigin)
-		div.product-mixin__title
-			span.product-mixin__title #{product.title}
-		div.product-minin__price
-			span.product-minin__price ₩#{product.currentPrice}~
-		div.product-minin__period
-			span.product-minin__period=product.createdAt
+	div.product_data(data-id=product.period)
+		a(href=`/products/${product.id}`).product-mixin
+			div.product-mixin__thumb
+				img.product-mixin__thumb(src="/" + product.fileUrl[0], crossorigin)
+			div.product-mixin__title
+				span.product-mixin__title #{product.title}
+			div.product-minin__price
+				span.product-minin__price ₩#{product.currentPrice}~
+			div.product-minin__period
+				span.product__period
