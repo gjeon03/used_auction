@@ -6,9 +6,9 @@ block content
 	div.edit_product_btn
 		if String(product.owner._id) === String(loggedInUser._id)
 			a(href=`${product.id}/edit`) Edit Product &rarr;
-	div.detail_form
+	div#detailContainer(data-id=product._id)
 		div.detail_form_data
-			div#img_container(data-id=product._id)
+			div#img_container
 				img(src="/" + product.fileUrl[0], alt=product.title)
 				div#img_thumb_container
 					each thumb in product.fileUrl 
@@ -49,3 +49,19 @@ block content
 						div.endDay=new Date(product.period).toLocaleString("ko-kr")
 		div.detail_form_description Description
 			div.product_description des
+	if loggedIn
+		div.product__add-comments
+			form.product__comment-form#commentForm
+				textarea(cols="30", rows="10", placeholder="Write a nice commment...")
+				button Add Comment
+	div.product__comments
+		ul
+			each comment in product.comments.reverse()
+				li.product__comment(data-id=comment.id)
+					i.fas.fa-comment
+					span  #{comment.text}
+					if String(comment.owner) === String(loggedInUser._id)
+						span.comment__delete ❌
+block scripts 
+	if loggedIn
+		script(src="/static/js/commentSection.js") 

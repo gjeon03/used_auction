@@ -6,6 +6,7 @@ const BASE_JS = "./src/client/js/";
 module.exports = {
   entry: {
     main: BASE_JS + "main.js",
+    commentSection: BASE_JS + "commentSection.js",
   },
   plugins: [
     new MiniCssExtractPlugin({

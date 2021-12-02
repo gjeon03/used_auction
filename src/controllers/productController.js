@@ -1,5 +1,6 @@
 import Product from "../models/Product";
 import User from "../models/User";
+import Comment from "../models/Comment";
 
 //Home
 export const home = async (req, res) => {
@@ -75,7 +76,9 @@ export const category = async (req, res) => {
 //Detail
 export const detail = async (req, res) => {
   const { id } = req.params;
-  const product = await Product.findById(id).populate("owner");
+  const product = await Product.findById(id)
+    .populate("owner")
+    .populate("comments");
   if (!product) {
     return res.render("404", { pageTitle: "Product not found" });
   }
@@ -191,4 +194,58 @@ export const postDelete = async (req, res) => {
   user.products.splice(user.products.indexOf(id), 1);
   await user.save();
   return res.redirect("/");
+};
+
+export const createComment = async (req, res) => {
+  const {
+    session: { user },
+    body: { text },
+    params: { id },
+  } = req;
+  const product = await Product.findById(id);
+  if (!product) {
+    return res.sendStatus(404);
+  }
+  const commentUser = await User.findById(user._id);
+  if (!commentUser) {
+    return res.sendStatus(404);
+  }
+  const comment = await Comment.create({
+    text,
+    owner: user._id,
+    product: id,
+  });
+  commentUser.comments.push(comment._id);
+  product.comments.push(comment._id);
+  product.save();
+  commentUser.save();
+  return res.status(201).json({ newCommentId: comment._id });
+};
+
+export const deleteComment = async (req, res) => {
+  const {
+    params: { id },
+    session: {
+      user: { _id },
+    },
+    body: { productId },
+  } = req;
+  //comment DB delete
+  const comment = await Comment.findById(id);
+  if (!comment) {
+    return res.sendStatus(404);
+  }
+  if (String(comment.owner) !== String(_id)) {
+    return res.status(403).redirect("/");
+  }
+  await Comment.findByIdAndDelete(id);
+  //product DB comment delete
+  const product = await Product.findById(productId);
+  product.comments.splice(product.comments.indexOf(id), 1);
+  await product.save();
+  //user DB comment delete
+  const commentUser = await User.findById(_id);
+  commentUser.comments.splice(commentUser.comments.indexOf(id), 1);
+  await commentUser.save();
+  return res.sendStatus(200);
 };
