@@ -10,9 +10,11 @@ const addComment = (text, id) => {
   const icon = document.createElement("i");
   icon.className = "fas fa-comment";
   const span = document.createElement("span");
+  span.className = "comment__text";
   span.innerText = ` ${text}`;
   const span2 = document.createElement("span");
   span2.innerText = "❌";
+  span2.className = "comment__delete";
   newComment.appendChild(icon);
   newComment.appendChild(span);
   newComment.appendChild(span2);
@@ -24,7 +26,6 @@ const handleSubmit = async (event) => {
   event.preventDefault();
   const textarea = form.querySelector("textarea");
   const text = textarea.value;
-  console.log("hello");
   const productId = productContainer.dataset.id;
   if (text === "") {
     return;

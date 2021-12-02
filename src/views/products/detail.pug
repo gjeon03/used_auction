@@ -15,53 +15,59 @@ block content
 						img(src="/" + thumb, alt=product.title)
 					else
 						div#product_thumb
-			div.product__data
-				div.product_info
-					div.product_bidsCount
-						span 입찰 건수
-						div#bidsCount=product.meta.bidsCount
-					div.product_period
-						span 남은 시간
-						div#period
-				div.product_category
-					span 카테고리
-					div=product.category
-				div.product_owner
-					span 판매자
-					div=product.owner.username 
-				div.product_buyer
-					span 예상 입찰자
-					div=product.buyer
-				div.product_price_container
-					span 현재 입찰금액
-					div#product_price
-						div=product.currentPrice
-				div.product_toBid
-					form.desiredPrice#priceForm
-						input.price_text(placeholder="현재 입찰 금액보다 큰 금액 입력", type="number", required)
-						input.price_btn(type="submit", value="입찰하기")
-				div.product_day_info
-					div
-						span 경매 시작 날짜
-						div.startDay=new Date(product.createdAt).toLocaleString("ko-kr")
-					div
-						span 경매 종료 날짜
-						div.endDay=new Date(product.period).toLocaleString("ko-kr")
-		div.detail_form_description Description
-			div.product_description des
-	if loggedIn
-		div.product__add-comments
-			form.product__comment-form#commentForm
-				textarea(cols="30", rows="10", placeholder="Write a nice commment...")
-				button Add Comment
-	div.product__comments
-		ul
-			each comment in product.comments.reverse()
-				li.product__comment(data-id=comment.id)
-					i.fas.fa-comment
-					span  #{comment.text}
-					if String(comment.owner) === String(loggedInUser._id)
-						span.comment__delete ❌
+			div.product__data_fixed
+				div.product__data
+					div.product_info
+						div.product_bidsCount
+							span 입찰 건수
+							div#bidsCount=product.meta.bidsCount
+						div.product_period
+							span 남은 시간
+							div#period
+					div.product_category
+						span 카테고리
+						div=product.category
+					div.product_owner
+						span 판매자
+						div=product.owner.username 
+					div.product_buyer
+						span 예상 입찰자
+						div=product.buyer
+					div.product_price_container
+						span 현재 입찰금액
+						div#product_price
+							div=product.currentPrice
+					div.product_toBid
+						form.desiredPrice#priceForm
+							input.price_text(placeholder="현재 입찰 금액보다 큰 금액 입력", type="number", required)
+							input.price_btn(type="submit", value="입찰하기")
+					div.product_day_info
+						div
+							span 경매 시작 날짜
+							div.startDay=new Date(product.createdAt).toLocaleString("ko-kr")
+						div
+							span 경매 종료 날짜
+							div.endDay=new Date(product.period).toLocaleString("ko-kr")
+		div.detail_form_description_comments
+			div
+				div.detail_form_description Description
+					div.product_description=product.description
+				div.detail_form_comments Comments
+					if loggedIn
+						div.product__add-comments
+							form.product__comment-form#commentForm
+								textarea(placeholder="Write a nice commment...")
+								button Add Comment
+					div.product__comments
+						ul
+							each comment in product.comments.reverse()
+								li.product__comment(data-id=comment.id)
+									i.fas.fa-comment
+									span.comment__text  #{comment.text}
+									if String(comment.owner) === String(loggedInUser._id)
+										span.comment__delete ❌
+			div
 block scripts 
+	script(src="/static/js/detail.js") 
 	if loggedIn
 		script(src="/static/js/commentSection.js") 
