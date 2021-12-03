@@ -2,23 +2,68 @@ import Product from "../models/Product";
 import User from "../models/User";
 import Comment from "../models/Comment";
 
+//Products Sort
+const productsResult = (products) => {
+  let tmp = [];
+  let tmpEnd = [];
+  const nowTime = new Date().getTime();
+  for (let product of products) {
+    const dataTime = new Date(product.period).getTime();
+    if (dataTime - nowTime > 0) {
+      tmp.push(product);
+    } else {
+      tmpEnd.push(product);
+    }
+  }
+  const result = tmp.concat(tmpEnd);
+  return result;
+};
+
+const sortFlag = (product, keyword) => {
+  switch (keyword) {
+    case "period":
+      return new Date(product.period).getTime();
+    case "price":
+      return product.currentPrice;
+    case "bid":
+      return nproduct.meta.bidsCount;
+  }
+};
+
+const quickSort = (arr, keyword) => {
+  if (arr.length <= 1) return arr;
+  const pivot = arr[0];
+  const left = [];
+  const right = [];
+  for (let i = 1; i < arr.length; i++) {
+    if (sortFlag(arr[i], keyword) <= sortFlag(pivot, keyword)) {
+      left.push(arr[i]);
+    } else {
+      right.push(arr[i]);
+    }
+  }
+  const lSorted = quickSort(left, keyword);
+  const rSorted = quickSort(right, keyword);
+  return [...lSorted, pivot, ...rSorted];
+};
+
 //Home
 export const home = async (req, res) => {
   const { keyword } = req.query;
+  let products = [];
   if (keyword) {
-    let products = [];
     products = await Product.find({
       title: {
         $regex: new RegExp(`${keyword}$`, "i"),
       },
     }).populate("owner");
-    return res.render("home", { pageTitle: "SEARCH", products });
   } else {
-    let products = await Product.find({})
+    products = await Product.find({})
       .sort({ createdAt: "desc" })
       .populate("owner");
-    return res.render("home", { pageTitle: "HOME", products });
   }
+  const results = productsResult(quickSort(products, "period"));
+  return res.render("home", { pageTitle: "HOME", products: results });
 };
 
 //Category
@@ -249,3 +294,5 @@ export const deleteComment = async (req, res) => {
   await commentUser.save();
   return res.sendStatus(200);
 };
+
+export const productsSortKeyword = async (req, res) => {};

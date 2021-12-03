@@ -4,7 +4,7 @@ block content
 	div.pageTitle #{pageTitle}
 	form(method="POST")
 		input(name="title", placeholder="Product Title", value=product.title, required)
-		textarea.form_des(placeholder="Description", required, name="description", minlength=10)
+		textarea.form_des(placeholder="Description", required, name="description", minlength=10)=product.description
 		select#form_select(name="period")
 			option(value="") 경매 기간 연장
 			option(value="1") 1 일

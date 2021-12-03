@@ -39,5 +39,14 @@ nav
 			form(method="GET").search__form
 				input(placeholder="Please enter your search term", type="text", name="keyword", required) 
 				input(type="submit", value="Search")
+		div#products_sortType
+			div.sortType
+				span.produce 생성
+			div.sortType
+				span.period 시간
+			div.sortType
+				span.price 가격
+			div.sortType
+				span.bid 입찰수
 block scripts
 	script(src="/static/js/categorySection.js") 

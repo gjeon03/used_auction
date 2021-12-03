@@ -21,59 +21,43 @@ const productTime = (productDataForm) => {
   }
 };
 
-const productTimeSet = (arrayResult) => {
-  for (let i = 0; i < arrayResult.length; i++) {
-    productTime(arrayResult[i]);
-    arrayResult[i].style.order = i;
+const productTimeSet = () => {
+  for (let i = 0; i < productDataForms.length; i++) {
+    productTime(productDataForms[i]);
+    //arrayResult[i].style.order = i;
     setInterval(() => {
-      productTime(arrayResult[i]);
-      arrayResult[i].style.order = i;
+      productTime(productDataForms[i]);
+      //arrayResult[i].style.order = i;
     }, 1000);
   }
 };
 
 //Product Sort
-const productTimeArraySet = (productDataForms) => {
-  let tmp = [];
-  let tmpEnd = [];
-  for (let productDataForm of productDataForms) {
-    const dataTime = new Date(productDataForm.dataset.id).getTime();
-    if (dataTime - nowTime > 0) {
-      tmp.push(dataTime);
-    } else {
-      tmpEnd.push(dataTime);
-    }
-    tmp.concat(tmpEnd);
-  }
-  return tmp;
-};
+// const quickSort = (arr) => {
+//   if (arr.length <= 1) return arr;
 
-const quickSort = function (arr) {
-  if (arr.length <= 1) return arr;
+//   const pivot = arr[0];
+//   const left = [];
+//   const right = [];
 
-  const pivot = arr[0];
-  const left = [];
-  const right = [];
+//   for (let i = 1; i < arr.length; i++) {
+//     if (
+//       new Date(arr[i].dataset.id).getTime() <=
+//       new Date(pivot.dataset.id).getTime()
+//     ) {
+//       left.push(arr[i]);
+//     } else {
+//       right.push(arr[i]);
+//     }
+//   }
 
-  for (let i = 1; i < arr.length; i++) {
-    if (
-      new Date(arr[i].dataset.id).getTime() <=
-      new Date(pivot.dataset.id).getTime()
-    ) {
-      left.push(arr[i]);
-    } else {
-      right.push(arr[i]);
-    }
-  }
+//   const lSorted = quickSort(left);
+//   const rSorted = quickSort(right);
+//   return [...lSorted, pivot, ...rSorted];
+// };
 
-  const lSorted = quickSort(left);
-  const rSorted = quickSort(right);
-  return [...lSorted, pivot, ...rSorted];
-};
+// let productArray = productDataForms;
 
-let productArray = productDataForms;
-let productTimeArray = productTimeArraySet(productArray);
+// const arrayResult = quickSort(productArray);
 
-const arrayResult = quickSort(productArray);
-
-productTimeSet(arrayResult);
+productTimeSet();
