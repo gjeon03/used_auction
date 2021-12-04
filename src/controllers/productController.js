@@ -18,6 +18,20 @@ const productsResult = (products) => {
   return result;
 };
 
+//Sort
+const sortBy = (sort) => {
+  switch (sort) {
+    case "period":
+      return { period: "asc" };
+    case "price":
+      return { currentPrice: "asc" };
+    case "bid":
+      return { "meta.bidsCount": "desc" };
+    default:
+      return { createdAt: "desc" };
+  }
+};
+
 //Home
 export const home = async (req, res) => {
   const { keyword, sort } = req.query;
@@ -28,32 +42,10 @@ export const home = async (req, res) => {
         $regex: new RegExp(`${keyword}$`, "i"),
       },
     })
-      .sort({ createdAt: "desc" })
+      .sort(sortBy(sort))
       .populate("owner");
   } else {
-    console.log(sort);
-    switch (sort) {
-      case "period":
-        products = await Product.find({})
-          .sort({ period: "asc" })
-          .populate("owner");
-        break;
-      case "price":
-        products = await Product.find({})
-          .sort({ currentPrice: "asc" })
-          .populate("owner");
-        break;
-      case "bid":
-        products = await Product.find({})
-          .sort({ "meta.bidsCount": "desc" })
-          .populate("owner");
-        break;
-      default:
-        products = await Product.find({})
-          .sort({ createdAt: "desc" })
-          .populate("owner");
-        break;
-    }
+    products = await Product.find({}).sort(sortBy(sort)).populate("owner");
   }
   const results = productsResult(products);
   return res.render("home", {
@@ -88,9 +80,9 @@ const categoryK = (categoryE) => {
 
 export const category = async (req, res) => {
   const { category } = req.params;
+  const { sort, keyword } = req.query;
   let products = [];
   if (category) {
-    const { keyword } = req.query;
     if (keyword) {
       const categoryName = categoryK(category);
       products = await Product.find({
@@ -100,19 +92,30 @@ export const category = async (req, res) => {
         title: {
           $regex: new RegExp(`${keyword}$`, "i"),
         },
-      }).populate("owner");
-      return res.render("home", { pageTitle: "SEARCH", products });
+      })
+        .sort(sortBy(sort))
+        .populate("owner");
+      return res.render("home", {
+        pageTitle: "SEARCH",
+        products,
+        sort,
+        keyword,
+      });
     }
     const categoryName = categoryK(category);
     products = await Product.find({
       category: {
         $regex: new RegExp(`${categoryName}`, "i"),
       },
-    }).populate("owner");
+    })
+      .sort(sortBy(sort))
+      .populate("owner");
   }
   return res.render("home", {
     pageTitle: "CATEGORY",
     products,
+    sort,
+    keyword,
   });
 };
 

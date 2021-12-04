@@ -39,7 +39,7 @@ nav
 			form(method="GET").search__form
 				input(placeholder="Please enter your search term", type="text", name="keyword", required, value=keyword) 
 				input(type="submit", value="Search")
-		if pageTitle === "HOME"
+		if pageTitle !== "DETAIL"
 			div#products_sortType(data-id=sort)
 				form(method="GET").sort__form
 					if keyword
