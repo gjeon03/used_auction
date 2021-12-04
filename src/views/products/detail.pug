@@ -9,6 +9,8 @@ block content
 	div#detailContainer(data-id=product._id)
 		div.detail_form_data
 			div#img_container
+				if product.endCheck
+					img.sold_out_img(src="/img/soldOut.jpeg", alt="sold out")
 				img(src="/" + product.fileUrl[0], alt=product.title)
 				div#img_thumb_container
 					each thumb in product.fileUrl 

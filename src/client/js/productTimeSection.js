@@ -15,18 +15,57 @@ const productTime = (productDataForm) => {
       days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
     timeSection.innerText = resultTime;
   } else {
-    timeSection.innerText = "end";
+    timeSection.innerText = "SOLD OUT";
+    timeSection.style.color = "#c20200";
   }
 };
 
 const productTimeSet = () => {
-  for (let i = 0; i < productDataForms.length; i++) {
-    productTime(productDataForms[i]);
+  for (let productDataForm of productDataForms) {
+    borderCheck(productDataForm);
+    productTime(productDataForm);
     //arrayResult[i].style.order = i;
     setInterval(() => {
-      productTime(productDataForms[i]);
+      productTime(productDataForm);
       //arrayResult[i].style.order = i;
     }, 1000);
+  }
+};
+
+const borderColorSet = (productDataForm, color) => {
+  //const img = productDataForm.querySelector(".product-mixin__thumb img");
+  productDataForm.style.borderTop = `10px solid ${color}`;
+  //img.style.borderBottom = `3px solid ${color}`;
+};
+
+const borderCheck = (productDataForm) => {
+  const productA = productDataForm.querySelector("a");
+  const productCategory = productA.dataset.id;
+  switch (productCategory) {
+    case "패션":
+      borderColorSet(productDataForm, "#e2d3b7");
+      break;
+    case "뷰티":
+      borderColorSet(productDataForm, "#ba7957");
+      break;
+    case "스포츠":
+      borderColorSet(productDataForm, "#aac6b9");
+      break;
+    case "가구/인테리어":
+      borderColorSet(productDataForm, "#70989d");
+      break;
+    case "생활":
+      borderColorSet(productDataForm, "#d3a745");
+      break;
+    case "디지털":
+      borderColorSet(productDataForm, "#ffce81");
+      break;
+    case "도서/취미":
+      borderColorSet(productDataForm, "#f9b3ca");
+      break;
+    case "기타":
+      borderColorSet(productDataForm, "#bbe1f2");
+      break;
   }
 };
 
