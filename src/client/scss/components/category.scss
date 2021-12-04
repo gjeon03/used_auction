@@ -81,4 +81,24 @@
       }
     }
   }
+  #products_sortType {
+    padding: 20px 10px 0;
+    form {
+      display: flex;
+      justify-content: end;
+      input {
+        display: none;
+      }
+      label {
+        padding: 5px 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #ffffff;
+      }
+      .checked {
+        background-color: #000000;
+        color: #ffffff;
+      }
+    }
+  }
 }

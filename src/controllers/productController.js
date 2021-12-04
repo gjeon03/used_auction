@@ -2,7 +2,6 @@ import Product from "../models/Product";
 import User from "../models/User";
 import Comment from "../models/Comment";
 
-//Products Sort
 const productsResult = (products) => {
   let tmp = [];
   let tmpEnd = [];
@@ -19,51 +18,50 @@ const productsResult = (products) => {
   return result;
 };
 
-const sortFlag = (product, keyword) => {
-  switch (keyword) {
-    case "period":
-      return new Date(product.period).getTime();
-    case "price":
-      return product.currentPrice;
-    case "bid":
-      return nproduct.meta.bidsCount;
-  }
-};
-
-const quickSort = (arr, keyword) => {
-  if (arr.length <= 1) return arr;
-  const pivot = arr[0];
-  const left = [];
-  const right = [];
-  for (let i = 1; i < arr.length; i++) {
-    if (sortFlag(arr[i], keyword) <= sortFlag(pivot, keyword)) {
-      left.push(arr[i]);
-    } else {
-      right.push(arr[i]);
-    }
-  }
-  const lSorted = quickSort(left, keyword);
-  const rSorted = quickSort(right, keyword);
-  return [...lSorted, pivot, ...rSorted];
-};
-
 //Home
 export const home = async (req, res) => {
-  const { keyword } = req.query;
+  const { keyword, sort } = req.query;
   let products = [];
   if (keyword) {
     products = await Product.find({
       title: {
         $regex: new RegExp(`${keyword}$`, "i"),
       },
-    }).populate("owner");
-  } else {
-    products = await Product.find({})
+    })
       .sort({ createdAt: "desc" })
       .populate("owner");
+  } else {
+    console.log(sort);
+    switch (sort) {
+      case "period":
+        products = await Product.find({})
+          .sort({ period: "asc" })
+          .populate("owner");
+        break;
+      case "price":
+        products = await Product.find({})
+          .sort({ currentPrice: "asc" })
+          .populate("owner");
+        break;
+      case "bid":
+        products = await Product.find({})
+          .sort({ "meta.bidsCount": "desc" })
+          .populate("owner");
+        break;
+      default:
+        products = await Product.find({})
+          .sort({ createdAt: "desc" })
+          .populate("owner");
+        break;
+    }
   }
-  const results = productsResult(quickSort(products, "period"));
-  return res.render("home", { pageTitle: "HOME", products: results });
+  const results = productsResult(products);
+  return res.render("home", {
+    pageTitle: "HOME",
+    products: results,
+    keyword,
+    sort,
+  });
 };
 
 //Category
@@ -201,7 +199,7 @@ export const postEdit = async (req, res) => {
     return res.status(403).redirect("/");
   }
   console.log(period);
-  const tem = await Product.findByIdAndUpdate(id, {
+  await Product.findByIdAndUpdate(id, {
     title,
     description,
     period: period
@@ -209,7 +207,6 @@ export const postEdit = async (req, res) => {
       : product.period,
     category: category ? category : product.category,
   });
-  console.log(tem);
   return res.redirect(`/products/${id}`);
 };
 

@@ -37,16 +37,24 @@ nav
 				i.fas.fa-search
 		div#search_box
 			form(method="GET").search__form
-				input(placeholder="Please enter your search term", type="text", name="keyword", required) 
+				input(placeholder="Please enter your search term", type="text", name="keyword", required, value=keyword) 
 				input(type="submit", value="Search")
-		div#products_sortType
-			div.sortType
-				span.produce 생성
-			div.sortType
-				span.period 시간
-			div.sortType
-				span.price 가격
-			div.sortType
-				span.bid 입찰수
+		if pageTitle === "HOME"
+			div#products_sortType(data-id=sort)
+				form(method="GET").sort__form
+					if keyword
+						input(type="text", name="keyword", value=keyword)
+					div.produce
+						input(type="radio", name="sort", id="produce", value="produce", required)
+						label(for="produce") 생성
+					div.period
+						input(type="radio", name="sort", id="period", value="period", required)
+						label(for="period") 시간
+					div.price
+						input(type="radio", name="sort", id="price", value="price", required)
+						label(for="price") 가격
+					div.bid
+						input(type="radio", name="sort", id="bid", value="bid", required) 
+						label(for="bid") 입찰수
 block scripts
 	script(src="/static/js/categorySection.js") 
