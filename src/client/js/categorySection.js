@@ -29,4 +29,8 @@ if (sortBtnClickCheck) {
   const ckeckedInput = sortForm.querySelector(`.${sortBtnClickCheck}`);
   const ckecked = ckeckedInput.querySelector("label");
   ckecked.className = "checked";
+} else {
+  const ckeckedInput = sortForm.querySelector(".produce");
+  const ckecked = ckeckedInput.querySelector("label");
+  ckecked.className = "checked";
 }
