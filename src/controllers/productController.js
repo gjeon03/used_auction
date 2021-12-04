@@ -128,7 +128,11 @@ export const detail = async (req, res) => {
   if (!product) {
     return res.render("404", { pageTitle: "Product not found" });
   }
-  return res.render("products/detail", { pageTitle: product.title, product });
+  console.log(product.endCheck);
+  return res.render("products/detail", {
+    pageTitle: product.title,
+    product,
+  });
 };
 
 //Upload
@@ -294,5 +298,3 @@ export const deleteComment = async (req, res) => {
   await commentUser.save();
   return res.sendStatus(200);
 };
-
-export const productsSortKeyword = async (req, res) => {};

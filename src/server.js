@@ -8,6 +8,7 @@ import userRouter from "./routers/userRouter";
 import goodsRouter from "./routers/productRouter";
 import { localsMiddleware } from "./middlewares";
 import apiRouter from "./routers/apiRouter";
+import Product from "./models/Product";
 
 const app = express();
 const logger = morgan("dev");
@@ -36,5 +37,24 @@ app.use("/", rootRouter);
 app.use("/users", userRouter);
 app.use("/products", goodsRouter);
 app.use("/api", apiRouter);
+
+setInterval(async () => {
+  try {
+    const products = await Product.find({
+      endCheck: "false",
+    });
+    const nowAt = new Date().getTime();
+    for (let product of products) {
+      const endAt = new Date(product.period).getTime();
+      const timeResult = endAt - nowAt;
+      if (timeResult < 0) {
+        product.endCheck = true;
+        product.save();
+      }
+    }
+  } catch (e) {
+    console.log(e);
+  }
+}, 1000 * 60);
 
 export default app;

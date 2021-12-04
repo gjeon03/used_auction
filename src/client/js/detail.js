@@ -1,4 +1,7 @@
 const productContainer = document.getElementById("detatilContainer");
+// const productBidForm = productContainer.querySelector(".product_toBid");
+
+// console.log(productBidForm.)
 
 const handleScrollResize = () => {
   const windowHeight = document.documentElement.scrollTop;

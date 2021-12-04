@@ -1,7 +1,5 @@
 const productDataForms = document.querySelectorAll(".product_data");
 
-const nowTime = new Date().getTime();
-
 const productTime = (productDataForm) => {
   const productsData = productDataForm.dataset.id;
   const endAt = new Date(productsData).getTime();

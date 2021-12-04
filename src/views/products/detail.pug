@@ -34,13 +34,14 @@ block content
 						span 예상 입찰자
 						div=product.buyer
 					div.product_price_container
-						span 현재 입찰금액
+						span 현재 최고 입찰금액
 						div#product_price
 							div=product.currentPrice
-					div.product_toBid
-						form.desiredPrice#priceForm
-							input.price_text(placeholder="현재 입찰 금액보다 큰 금액 입력", type="number", required)
-							input.price_btn(type="submit", value="입찰하기")
+					if !product.endCheck
+						div.product_toBid
+							form.desiredPrice#priceForm
+								input.price_text(placeholder="현재 입찰 금액보다 큰 금액 입력", type="number", required)
+								input.price_btn(type="submit", value="입찰하기")
 					div.product_day_info
 						div
 							span 경매 시작 날짜
