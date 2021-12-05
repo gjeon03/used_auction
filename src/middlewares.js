@@ -1,4 +1,5 @@
 import multer from "multer";
+import User from "./models/User";
 
 export const localsMiddleware = (req, res, next) => {
   res.locals.loggedIn = Boolean(req.session.loggedIn);
@@ -23,6 +24,18 @@ export const publicOnlyMiddleware = (req, res, next) => {
     req.flash("error", "Log in first.");
     return res.redirect("/");
   }
+};
+
+export const userEmailAddressCheck = async (req, res, next) => {
+  const {
+    user: { _id },
+  } = req.session;
+  const user = await User.findById(_id);
+  if (user.email === "" || user.address === "") {
+    req.flash("error", "Please fill in all information.");
+    return res.redirect("/users/edit");
+  }
+  return next();
 };
 
 export const avatarUpload = multer({

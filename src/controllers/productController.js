@@ -40,7 +40,7 @@ export const home = async (req, res) => {
   if (keyword) {
     products = await Product.find({
       title: {
-        $regex: new RegExp(`${keyword}$`, "i"),
+        $regex: new RegExp(`${keyword}`, "i"),
       },
     })
       .sort(sortBy(sort))
@@ -91,7 +91,7 @@ export const category = async (req, res) => {
           $regex: new RegExp(`${categoryName}`, "i"),
         },
         title: {
-          $regex: new RegExp(`${keyword}$`, "i"),
+          $regex: new RegExp(`${keyword}`, "i"),
         },
       })
         .sort(sortBy(sort))
@@ -317,26 +317,31 @@ export const postToBid = async (req, res) => {
     if (!product) {
       return res
         .status(404)
-        .json({ errorMessage: "Incorrect product information" });
+        .json({ errorMessage: "Incorrect product information." });
     }
     if (product.endCheck) {
-      return res.status(404).json({ errorMessage: "End of auction" });
+      return res.status(404).json({ errorMessage: "End of auction." });
     }
     if (product.currentPrice >= Number(price)) {
       return res
         .status(404)
-        .json({ errorMessage: "Please write a higher bid amount" });
+        .json({ errorMessage: "Please write a higher bid amount." });
     }
     const userDb = await User.findById(user._id).populate("bid");
     if (!userDb) {
       return res
         .status(404)
-        .json({ errorMessage: "User information is incorrect" });
+        .json({ errorMessage: "User information is incorrect." });
     }
     product.currentPrice = Number(price);
     product.buyer = userDb._id;
     product.meta.bidsCount = product.meta.bidsCount + 1;
 
+    //User email & address check
+    if (userDb.email === "" || userDb.address === "") {
+      req.flash("error", "Please fill in all information.");
+      return res.status(404).json({ errorMessage: "information" });
+    }
     // User buyer change
     const changeBuyers = await User.find({
       bid: product._id,

@@ -8,13 +8,18 @@ import {
   getDelete,
   postDelete,
 } from "../controllers/productController";
-import { productUpload, protectorMiddleware } from "../middlewares";
+import {
+  productUpload,
+  protectorMiddleware,
+  userEmailAddressCheck,
+} from "../middlewares";
 
 const goodsRouter = express.Router();
 
 goodsRouter
   .route("/upload")
   .all(protectorMiddleware)
+  .all(userEmailAddressCheck)
   .get(getUpload)
   .post(productUpload.array("photo", 10), postUpload);
 goodsRouter

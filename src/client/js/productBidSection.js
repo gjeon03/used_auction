@@ -30,12 +30,16 @@ const handleBidSubmit = async (event) => {
     fixCurrentPrice(buyer, price);
   } else {
     const { errorMessage } = await response.json();
-    const errormessage = document.querySelector(".message");
-    const createErrorMessage = document.createElement("div");
-    createErrorMessage.className = "error";
-    createErrorMessage.innerText = errorMessage;
-    errormessage.appendChild(createErrorMessage);
-    errormessage.style.display = "inline";
+    if (errorMessage === "information") {
+      location.href = "/users/edit";
+    } else {
+      const errormessage = document.querySelector(".message");
+      const createErrorMessage = document.createElement("div");
+      createErrorMessage.className = "error";
+      createErrorMessage.innerText = errorMessage;
+      errormessage.appendChild(createErrorMessage);
+      errormessage.style.display = "inline";
+    }
   }
   priceInputBox.value = "";
 };

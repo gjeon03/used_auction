@@ -316,6 +316,8 @@ export const finishGithubLogin = async (req, res) => {
         username: userData.login,
         email: emailObj.email,
         password: "",
+        address: "",
+        address2: "",
         social: { socialOnly: true, socialName: "github" },
       });
     }
@@ -397,6 +399,8 @@ export const finishKakaoLogin = async (req, res) => {
         username: id,
         email,
         password: "",
+        address: "",
+        address2: "",
         social: { socialOnly: true, socialName: "kakao" },
       });
     }
