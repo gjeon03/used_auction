@@ -3,7 +3,8 @@ extends base
 block content 
 	div.pageTitle #{pageTitle}
 	if errorMessage
-		span=errorMessage
+		div.message
+			div.error=errorMessage
 	form(method="POST")
 		if !loggedInUser.social.socialOnly && btnName != "Delete"
 			input(placeholder="Password", name="password", type="password", required)

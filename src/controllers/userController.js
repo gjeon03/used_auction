@@ -34,6 +34,7 @@ export const postJoin = async (req, res) => {
       address,
       address2,
     });
+    req.flash("success", "Sign up completed.");
     return res.redirect("/login");
   } catch (error) {
     return res.status(400).render("users/join", {
@@ -67,6 +68,7 @@ export const postLogin = async (req, res) => {
   }
   req.session.loggedIn = true;
   req.session.user = user;
+  req.flash("success", "Welcome.");
   return res.redirect("/");
 };
 
@@ -93,6 +95,7 @@ export const postEdit = async (req, res) => {
     { new: true }
   );
   req.session.user = updatedUser;
+  req.flash("success", "Profile edit complete.");
   return res.redirect("/users/edit");
 };
 
@@ -101,7 +104,7 @@ export const logout = (req, res) => {
   req.session.user = null;
   res.locals.loggedInUser = req.session.user;
   req.session.loggedIn = false;
-  //req.flash("info", "Bye Bye");
+  req.flash("info", "Bye Bye");
   return res.redirect("/");
 };
 
@@ -144,6 +147,7 @@ export const postChangePassword = async (req, res) => {
   }
   user.password = newPassword;
   await user.save();
+  req.flash("success", "Password change complete.");
   return res.redirect("/users/logout");
 };
 
@@ -201,6 +205,7 @@ export const postDelete = async (req, res) => {
   req.session.user = null;
   res.locals.loggedInUser = req.session.user;
   req.session.loggedIn = false;
+  req.flash("success", "Sign out completed.");
   return res.redirect("/");
 };
 
@@ -316,6 +321,7 @@ export const finishGithubLogin = async (req, res) => {
     }
     req.session.loggedIn = true;
     req.session.user = user;
+    req.flash("success", "Welcome.");
     return res.redirect("/");
   } else {
     return res.redirect("/login");
@@ -396,6 +402,7 @@ export const finishKakaoLogin = async (req, res) => {
     }
     req.session.loggedIn = true;
     req.session.user = user;
+    req.flash("success", "Welcome.");
     return res.redirect("/");
   } else {
     return res.redirect("/login");

@@ -7,7 +7,7 @@
 - edit profile[o]
 - delete[o]
 - change password[o]
-- bid list[]
+- bid list[o]
 - profile[o]
 - logout[o]
 
@@ -35,4 +35,4 @@
 
 ### midllewares
 
-- user address check[]
+- user address, email check[]

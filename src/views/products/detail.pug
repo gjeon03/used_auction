@@ -2,7 +2,7 @@ extends ../base
 
 block content 
 	include ../components/category
-	div.errorMessage
+	div.message
 	div.pageTitle=pageTitle
 	div.edit_product_btn
 		if String(product.owner._id) === String(loggedInUser._id)

@@ -163,6 +163,7 @@ export const postUpload = async (req, res) => {
     const user = await User.findById(_id);
     user.products.push(newProduct._id);
     user.save();
+    req.flash("success", "Product upload complete.");
     return res.redirect("/");
   } catch (error) {
     console.log(error);
@@ -204,6 +205,7 @@ export const postEdit = async (req, res) => {
     return res.status(404).render("404", { pageTitle: "Product not found." });
   }
   if (String(product.owner) !== String(_id)) {
+    req.flash("error", "You are not the the owner of the product.");
     return res.status(403).redirect("/");
   }
   await Product.findByIdAndUpdate(id, {
@@ -214,6 +216,7 @@ export const postEdit = async (req, res) => {
       : product.period,
     category: category ? category : product.category,
   });
+  req.flash("success", "Changes saved.");
   return res.redirect(`/products/${id}`);
 };
 
@@ -234,6 +237,7 @@ export const postDelete = async (req, res) => {
   } = req;
   const product = await Product.findById(id);
   if (String(product.owner) !== String(_id)) {
+    req.flash("error", "You are not the the owner of the product.");
     return res.status(403).redirect("/");
   }
   //Product DB Delete
@@ -242,6 +246,7 @@ export const postDelete = async (req, res) => {
   const user = await User.findById(_id);
   user.products.splice(user.products.indexOf(id), 1);
   await user.save();
+  req.flash("success", "Product deletion complete.");
   return res.redirect("/");
 };
 
@@ -285,6 +290,7 @@ export const deleteComment = async (req, res) => {
     return res.sendStatus(404);
   }
   if (String(comment.owner) !== String(_id)) {
+    req.flash("error", "You are not the the owner of the comment.");
     return res.status(403).redirect("/");
   }
   await Comment.findByIdAndDelete(id);

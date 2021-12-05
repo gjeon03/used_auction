@@ -4,7 +4,8 @@ block content
 	div.upload__container
 		div.pageTitle=pageTitle
 		if errorMessage
-			span=errorMessage
+			div.message
+				div.error=errorMessage
 		form(method="POST", enctype="multipart/form-data")
 			label(for="photo") Photo File
 			input(type="file", accept="image/*", required, id="photo", name="photo", multiple)

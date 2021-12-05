@@ -47,6 +47,41 @@ i {
   cursor: pointer;
 }
 
-.errorMessage {
-  display: none;
+@keyframes goAway {
+  from {
+    transform: none;
+    opacity: 1;
+  }
+  to {
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+}
+
+.message,
+.error {
+  position: fixed;
+  z-index: 2;
+  top: 10px;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  max-width: 200px;
+  padding: 10px 20px;
+  border-radius: 10000px;
+  text-align: center;
+  animation: goAway 0.5s ease-in-out forwards;
+  animation-delay: 5s;
+  &.error {
+    background-color: tomato;
+    color: white;
+  }
+  &.info {
+    background-color: #000000;
+    color: white;
+  }
+  &.success {
+    background-color: #40c8f9;
+    color: #000000;
+  }
 }

@@ -2,7 +2,8 @@ extends ../base
 
 block content
 	if errorMessage
-		span=errorMessage
+		div.message
+			div.error=errorMessage
 	div.pageTitle #{pageTitle}
 	form(method="POST")
 		input(placeholder="Email", name="email", type="email", required)
