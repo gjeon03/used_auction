@@ -22,7 +22,10 @@ const productTime = (productDataForm) => {
 
 const productTimeSet = () => {
   for (let productDataForm of productDataForms) {
-    borderCheck(productDataForm);
+    const productA = productDataForm.querySelector(".product-mixin");
+    if (productA) {
+      borderCheck(productDataForm, productA);
+    }
     productTime(productDataForm);
     //arrayResult[i].style.order = i;
     setInterval(() => {
@@ -38,8 +41,7 @@ const borderColorSet = (productDataForm, color) => {
   //img.style.borderBottom = `3px solid ${color}`;
 };
 
-const borderCheck = (productDataForm) => {
-  const productA = productDataForm.querySelector("a");
+const borderCheck = (productDataForm, productA) => {
   const productCategory = productA.dataset.id;
   switch (productCategory) {
     case "패션":

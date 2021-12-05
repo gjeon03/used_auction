@@ -15,6 +15,7 @@ const userSchema = new mongoose.Schema({
   address2: { type: String },
   products: [{ type: mongoose.Schema.Types.ObjectId, ref: "Product" }],
   comments: [{ type: mongoose.Schema.Types.ObjectId, ref: "Comment" }],
+  bid: [{ type: mongoose.Schema.Types.ObjectId, ref: "Product" }],
 });
 
 userSchema.pre("save", async function () {

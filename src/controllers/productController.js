@@ -2,6 +2,7 @@ import Product from "../models/Product";
 import User from "../models/User";
 import Comment from "../models/Comment";
 
+//Products result
 const productsResult = (products) => {
   let tmp = [];
   let tmpEnd = [];
@@ -124,7 +125,8 @@ export const detail = async (req, res) => {
   const { id } = req.params;
   const product = await Product.findById(id)
     .populate("owner")
-    .populate("comments");
+    .populate("comments")
+    .populate("buyer");
   if (!product) {
     return res.render("404", { pageTitle: "Product not found" });
   }
@@ -297,4 +299,57 @@ export const deleteComment = async (req, res) => {
   commentUser.comments.splice(commentUser.comments.indexOf(id), 1);
   await commentUser.save();
   return res.sendStatus(200);
+};
+
+//Product to bid
+export const postToBid = async (req, res) => {
+  const {
+    session: { user },
+    body: { price },
+    params: { id },
+  } = req;
+  try {
+    const product = await Product.findById(id);
+    if (!product) {
+      return res
+        .status(404)
+        .json({ errorMessage: "Incorrect product information" });
+    }
+    if (product.currentPrice >= Number(price)) {
+      return res
+        .status(404)
+        .json({ errorMessage: "Please write a higher bid amount" });
+    }
+    const userDb = await User.findById(user._id).populate("bid");
+    if (!userDb) {
+      return res
+        .status(404)
+        .json({ errorMessage: "User information is incorrect" });
+    }
+    product.currentPrice = Number(price);
+    product.buyer = userDb._id;
+    // User Auction List Duplicate Check
+    let flag = false;
+    if (userDb.bid.length > 0) {
+      for (let i = 0; i < userDb.bid.length; i++) {
+        if (String(userDb.bid[i]._id) === String(product._id)) {
+          userDb.bid[i] = product._id;
+          flag = false;
+        } else {
+          flag = true;
+        }
+      }
+      if (flag) {
+        userDb.bid.push(product._id);
+        userDb.save();
+      }
+    } else {
+      userDb.bid.push(product._id);
+      userDb.save();
+    }
+    product.save();
+    return res.status(201).json({ buyer: userDb.username });
+  } catch (e) {
+    console.log(e);
+  }
 };

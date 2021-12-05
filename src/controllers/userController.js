@@ -194,10 +194,8 @@ export const postDelete = async (req, res) => {
   }
   //Product DB Delete
   for (const item of user.products) {
-    const product = await Product.findById(item._id);
-    if (!product.endCheck) {
-      await Product.findByIdAndDelete(item._id);
-    }
+    //const product = await Product.findById(item._id);
+    await Product.findByIdAndDelete(item._id);
   }
   //User DB Delete
   await User.findByIdAndDelete(_id);

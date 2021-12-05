@@ -10,6 +10,7 @@ module.exports = {
     detail: BASE_JS + "detail.js",
     categorySection: BASE_JS + "categorySection.js",
     productTimeSection: BASE_JS + "productTimeSection.js",
+    productBidSection: BASE_JS + "productBidSection.js",
   },
   plugins: [
     new MiniCssExtractPlugin({

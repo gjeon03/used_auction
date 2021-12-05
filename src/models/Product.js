@@ -14,7 +14,7 @@ const productSchema = new mongoose.Schema({
     bidsCount: { type: Number, default: 0, required: true },
   },
   owner: { type: mongoose.Schema.Types.ObjectId, required: true, ref: "User" },
-  buyer: { type: String },
+  buyer: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
   endCheck: { type: Boolean, default: false },
   comments: [
     { type: mongoose.Schema.Types.ObjectId, required: true, ref: "Comment" },

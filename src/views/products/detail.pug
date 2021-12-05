@@ -2,6 +2,7 @@ extends ../base
 
 block content 
 	include ../components/category
+	div.errorMessage
 	div.pageTitle=pageTitle
 	div.edit_product_btn
 		if String(product.owner._id) === String(loggedInUser._id)
@@ -26,7 +27,7 @@ block content
 						div.product_data(data-id=product.period)
 							span 남은 시간
 							div.product__period
-					div.product_category
+					div.product_category(data-id=product.category)
 						span 카테고리
 						div=product.category
 					div.product_owner
@@ -34,15 +35,18 @@ block content
 						div=product.owner.username 
 					div.product_buyer
 						span 예상 입찰자
-						div=product.buyer
+						if product.buyer
+							div=product.buyer.username
+						else
+							div
 					div.product_price_container
 						span 현재 최고 입찰금액
-						div#product_price
-							div=product.currentPrice
+						div#product_price(data-id=product.currentPrice)
+							div.price_box
 					if !product.endCheck
 						div.product_toBid
 							form.desiredPrice#priceForm
-								input.price_text(placeholder="현재 입찰 금액보다 큰 금액 입력", type="number", required)
+								input.price_number(placeholder="현재 입찰 금액보다 큰 금액 입력", type="number", required)
 								input.price_btn(type="submit", value="입찰하기")
 					div.product_day_info
 						div
@@ -73,5 +77,6 @@ block content
 block scripts 
 	script(src="/static/js/detail.js") 
 	script(src="/static/js/productTimeSection.js") 
+	script(src="/static/js/productBidSection.js") 
 	if loggedIn
 		script(src="/static/js/commentSection.js") 
