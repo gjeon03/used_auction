@@ -130,7 +130,6 @@ export const detail = async (req, res) => {
   if (!product) {
     return res.render("404", { pageTitle: "Product not found" });
   }
-  console.log(product.endCheck);
   return res.render("products/detail", {
     pageTitle: product.title,
     product,
@@ -207,7 +206,6 @@ export const postEdit = async (req, res) => {
   if (String(product.owner) !== String(_id)) {
     return res.status(403).redirect("/");
   }
-  console.log(period);
   await Product.findByIdAndUpdate(id, {
     title,
     description,
@@ -332,6 +330,16 @@ export const postToBid = async (req, res) => {
     product.currentPrice = Number(price);
     product.buyer = userDb._id;
     product.meta.bidsCount = product.meta.bidsCount + 1;
+
+    // User buyer change
+    const changeBuyers = await User.find({
+      bid: product._id,
+    });
+    for (let changeUser of changeBuyers) {
+      changeUser.bid.splice(changeUser.bid.indexOf(id), 1);
+      changeUser.save();
+    }
+
     // User Auction List Duplicate Check
     let flag = false;
     if (userDb.bid.length > 0) {

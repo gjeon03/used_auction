@@ -1,7 +1,6 @@
 import User from "../models/User";
 import bcrypt from "bcrypt";
 import fetch from "node-fetch";
-import { Octokit } from "@octokit/core";
 import Product from "../models/Product";
 
 //Join
@@ -206,7 +205,18 @@ export const postDelete = async (req, res) => {
 };
 
 //Bid list
-export const getBidList = (req, res) => {};
+export const getBidList = async (req, res) => {
+  const {
+    session: {
+      user: { _id },
+    },
+  } = req;
+  const user = await User.findById(_id).populate("bid");
+  return res.render("users/bid-list", {
+    pageTitle: "BID LIST",
+    products: user.bid,
+  });
+};
 
 //Profile
 export const profile = async (req, res) => {

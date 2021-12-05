@@ -1,0 +1,12 @@
+extends ../base
+include ../mixins/product
+
+block content
+	div.pageTitle #{pageTitle}
+	div.products-grid
+		each product in products
+			+product(product)
+		else
+			span.empty__message No products found 
+block scripts
+	script(src="/static/js/productTimeSection.js")
