@@ -315,6 +315,9 @@ export const postToBid = async (req, res) => {
         .status(404)
         .json({ errorMessage: "Incorrect product information" });
     }
+    if (product.endCheck) {
+      return res.status(404).json({ errorMessage: "End of auction" });
+    }
     if (product.currentPrice >= Number(price)) {
       return res
         .status(404)
@@ -328,6 +331,7 @@ export const postToBid = async (req, res) => {
     }
     product.currentPrice = Number(price);
     product.buyer = userDb._id;
+    product.meta.bidsCount = product.meta.bidsCount + 1;
     // User Auction List Duplicate Check
     let flag = false;
     if (userDb.bid.length > 0) {

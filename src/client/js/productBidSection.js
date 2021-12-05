@@ -4,8 +4,10 @@ const bidForm = productContainer.querySelector("#priceForm");
 const fixCurrentPrice = (buyer, price) => {
   const buyerBox = productContainer.querySelector(".product_buyer div");
   const priceBox = productContainer.querySelector(".price_box");
+  const bidCount = document.getElementById("bidsCount");
   buyerBox.innerText = buyer;
   priceBox.innerText = price;
+  bidCount.innerText = Number(bidCount.innerText) + 1;
 };
 
 const handleBidSubmit = async (event) => {

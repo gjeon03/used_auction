@@ -14,7 +14,7 @@
 ### Main
 
 - home[o]
-- search[]
+- search[o]
 - login[o]
 - join[o]
 
@@ -24,14 +24,14 @@
 - upload[o]
 - edit[o]
 - delete[o]
-- comment[]
+- comment[o]
 
 ### js
 
-- product update description[]
-- product detail description[]
-- product time[]
-- to bid[]
+- product update description[o]
+- product detail description[o]
+- product time[o]
+- to bid[o]
 
 ### midllewares
 
