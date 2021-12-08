@@ -4,7 +4,7 @@ mixin product(product)
 			if product.endCheck
 				img.sold_out_img(src="/img/soldOut.jpeg", alt="sold out")
 			div.product-mixin__thumb
-				img.product-mixin__thumb(src="/" + product.fileUrl[0], crossorigin)
+				img.product-mixin__thumb(src=product.fileUrl[0], crossorigin)
 			div.product-mixin__title
 				span.product-mixin__title #{product.title}
 			div.product-minin__price

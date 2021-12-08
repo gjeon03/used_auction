@@ -149,11 +149,12 @@ export const postUpload = async (req, res) => {
     files,
   } = req;
   const { title, description, startPrice, period, category } = req.body;
+  const isHeroku = process.env.NODE_ENV === "production";
   try {
     const newProduct = await Product.create({
       title,
       description,
-      fileUrl: Product.photoArrayPath(files),
+      fileUrl: Product.photoArrayPath(files, isHeroku),
       startPrice,
       currentPrice: startPrice,
       period: Product.periodCalculate(period),

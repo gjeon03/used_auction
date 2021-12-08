@@ -12,6 +12,7 @@ import {
   productUpload,
   protectorMiddleware,
   userEmailAddressCheck,
+  s3DeleteProductsMiddleware,
 } from "../middlewares";
 
 const goodsRouter = express.Router();
@@ -31,7 +32,7 @@ goodsRouter
   .route("/:id([0-9a-f]{24})/delete")
   .all(protectorMiddleware)
   .get(getDelete)
-  .post(postDelete);
+  .post(s3DeleteProductsMiddleware, postDelete);
 goodsRouter.get("/:id([0-9a-f]{24})", detail);
 
 export default goodsRouter;

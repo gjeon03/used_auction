@@ -33,10 +33,10 @@ productSchema.static("updatePeriodCalculate", function (existing, period) {
   return date.getTime();
 });
 
-productSchema.static("photoArrayPath", function (fileUrl) {
+productSchema.static("photoArrayPath", function (fileUrl, isHeroku) {
   const result = [];
   for (const item of fileUrl) {
-    result.push(item.path);
+    result.push(isHeroku ? item.location : item.path);
   }
   return result;
 });

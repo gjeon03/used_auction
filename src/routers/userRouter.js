@@ -19,6 +19,7 @@ import {
   avatarUpload,
   protectorMiddleware,
   publicOnlyMiddleware,
+  s3DeleteAvatarMiddleware,
 } from "../middlewares";
 
 const userRouter = express.Router();
@@ -27,7 +28,7 @@ userRouter
   .route("/edit")
   .all(protectorMiddleware)
   .get(getEdit)
-  .post(avatarUpload.single("avatar"), postEdit);
+  .post(avatarUpload.single("avatar"), s3DeleteAvatarMiddleware, postEdit);
 userRouter.route("/delete").get(getDelete).post(postDelete);
 userRouter
   .route("/change-password")
