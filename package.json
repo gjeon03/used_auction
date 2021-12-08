@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "The best way to used auction",
   "scripts": {
+    "start": "node build/init.js",
+    "build": "npm run build:server && npm run build:assets",
+    "build:server": "babel src -d build",
+    "build:assets": "webpack --mode=production",
     "dev:server": "nodemon",
     "dev:assets": "webpack --mode=development -w"
   },
@@ -17,6 +21,7 @@
   },
   "homepage": "https://github.com/gjeon03/used_auction#readme",
   "dependencies": {
+    "@babel/cli": "^7.16.0",
     "@octokit/core": "^3.5.1",
     "bcrypt": "^5.0.1",
     "connect-mongo": "^4.6.0",

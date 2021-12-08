@@ -373,7 +373,6 @@ export const finishKakaoLogin = async (req, res) => {
         },
       })
     ).json();
-    console.log(userData);
     const {
       id,
       properties: { nickname, profile_image },
