@@ -14,10 +14,6 @@ const handleSearchClick = (event) => {
   }
 };
 
-const handleSortClick = (sortForm) => {
-  sortForm.submit();
-};
-
 searchBtn.addEventListener("click", handleSearchClick);
 
 if (productSortType) {
@@ -26,7 +22,7 @@ if (productSortType) {
   const sortBtnClickCheck = productSortType.dataset.id;
 
   for (let sortInput of sortFormInputs) {
-    sortInput.addEventListener("click", handleSortClick(sortForm));
+    sortInput.addEventListener("click", () => sortForm.submit());
   }
   if (sortBtnClickCheck) {
     const ckeckedInput = sortForm.querySelector(`.${sortBtnClickCheck}`);
