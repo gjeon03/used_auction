@@ -12,10 +12,10 @@ block content
 			div#img_container
 				if product.endCheck
 					img.sold_out_img(src="/img/soldOut.jpeg", alt="sold out")
-				img.product_main_img(src="/" + product.fileUrl[0], alt=product.title)
+				img.product_main_img(src=product.fileUrl[0], alt=product.title)
 				div#img_thumb_container
 					each thumb in product.fileUrl 
-						img.thumbnail(src="/" + thumb, alt=product.title)
+						img.thumbnail(src=thumb, alt=product.title)
 					else
 						div#product_thumb
 			div.product__data_fixed
