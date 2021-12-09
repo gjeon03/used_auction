@@ -1,8 +1,8 @@
 const productContainer = document.getElementById("detatilContainer");
 const productData = document.querySelector(".product__data");
-// const productBidForm = productContainer.querySelector(".product_toBid");
-
-// console.log(productBidForm.)
+const imgContainer = document.getElementById("img_container");
+const mainImg = imgContainer.querySelector(".product_main_img");
+const thumbnails = imgContainer.querySelectorAll(".thumbnail");
 
 const handleScrollResize = () => {
   const windowHeight = document.documentElement.scrollTop;
@@ -54,6 +54,16 @@ const borderCheck = () => {
   }
 };
 
+const handleThumbnailChange = (event) => {
+  const { src } = event.target;
+  if (mainImg.src !== src) {
+    mainImg.src = src;
+  }
+};
+
 window.addEventListener("scroll", handleScrollResize);
 window.addEventListener("resize", handleScrollResize);
 borderCheck();
+for (let thumbnail of thumbnails) {
+  thumbnail.addEventListener("click", handleThumbnailChange);
+}
