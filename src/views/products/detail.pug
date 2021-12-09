@@ -69,10 +69,13 @@ block content
 						ul
 							each comment in product.comments.reverse()
 								li.product__comment(data-id=comment.id)
-									i.fas.fa-comment
-									span.comment__text  #{comment.text}
-									if String(comment.owner) === String(loggedInUser._id)
-										span.comment__delete ❌
+									div.comment__data_user
+										span.comment__username=comment.ownerUserName
+										if String(comment.owner) === String(loggedInUser._id)
+											span.comment__delete ❌
+									div.comment__data_text
+										i.fas.fa-comment
+										span.comment__text  #{comment.text}
 			div
 block scripts 
 	script(src="/static/js/detail.js") 

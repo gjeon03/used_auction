@@ -268,13 +268,16 @@ export const createComment = async (req, res) => {
   const comment = await Comment.create({
     text,
     owner: user._id,
+    ownerUserName: user.username,
     product: id,
   });
   commentUser.comments.push(comment._id);
   product.comments.push(comment._id);
   product.save();
   commentUser.save();
-  return res.status(201).json({ newCommentId: comment._id });
+  return res
+    .status(201)
+    .json({ newCommentId: comment._id, username: user.username });
 };
 
 export const deleteComment = async (req, res) => {
