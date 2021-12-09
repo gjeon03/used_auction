@@ -3,7 +3,7 @@ extends ../base
 block content 
 	include ../components/category
 	div.message
-	div.pageTitle=pageTitle
+	div.pageTitle=product.title
 	div.edit_product_btn
 		if String(product.owner._id) === String(loggedInUser._id)
 			a(href=`${product.id}/edit`) Edit Product &rarr;

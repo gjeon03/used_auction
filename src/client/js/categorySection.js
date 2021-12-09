@@ -1,10 +1,7 @@
 const searchBtn = document.getElementById("search_btn");
 const productSortType = document.getElementById("products_sortType");
-const sortForm = productSortType.querySelector("form");
-const sortFormInputs = sortForm.querySelectorAll("input");
 
 let searchClickCheck = true;
-const sortBtnClickCheck = productSortType.dataset.id;
 
 const handleSearchClick = (event) => {
   const searchBox = document.getElementById("search_box");
@@ -17,20 +14,27 @@ const handleSearchClick = (event) => {
   }
 };
 
-const handleSortClick = () => {
+const handleSortClick = (sortForm) => {
   sortForm.submit();
 };
 
 searchBtn.addEventListener("click", handleSearchClick);
-for (let sortInput of sortFormInputs) {
-  sortInput.addEventListener("click", handleSortClick);
-}
-if (sortBtnClickCheck) {
-  const ckeckedInput = sortForm.querySelector(`.${sortBtnClickCheck}`);
-  const ckecked = ckeckedInput.querySelector("label");
-  ckecked.className = "checked";
-} else {
-  const ckeckedInput = sortForm.querySelector(".produce");
-  const ckecked = ckeckedInput.querySelector("label");
-  ckecked.className = "checked";
+
+if (productSortType) {
+  const sortForm = productSortType.querySelector("form");
+  const sortFormInputs = sortForm.querySelectorAll("input");
+  const sortBtnClickCheck = productSortType.dataset.id;
+
+  for (let sortInput of sortFormInputs) {
+    sortInput.addEventListener("click", handleSortClick(sortForm));
+  }
+  if (sortBtnClickCheck) {
+    const ckeckedInput = sortForm.querySelector(`.${sortBtnClickCheck}`);
+    const ckecked = ckeckedInput.querySelector("label");
+    ckecked.className = "checked";
+  } else {
+    const ckeckedInput = sortForm.querySelector(".produce");
+    const ckecked = ckeckedInput.querySelector("label");
+    ckecked.className = "checked";
+  }
 }

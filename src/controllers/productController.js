@@ -131,7 +131,7 @@ export const detail = async (req, res) => {
     return res.render("404", { pageTitle: "Product not found" });
   }
   return res.render("products/detail", {
-    pageTitle: product.title,
+    pageTitle: "DETAIL",
     product,
   });
 };
