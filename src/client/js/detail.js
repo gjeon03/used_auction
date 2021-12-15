@@ -15,10 +15,23 @@ const handleScrollResize = () => {
   }
 };
 
+const comma = (num) => {
+  const len = num.length;
+  let point = len % 3;
+  let str = num.substring(0, point);
+
+  while (point < len) {
+    if (str != "") str += ",";
+    str += num.substring(point, point + 3);
+    point += 3;
+  }
+  return str;
+};
+
 const unitOfMoney = (productPriceBox) => {
   const money = productPriceBox.dataset.id;
   const moneyBox = productPriceBox.querySelector("div");
-  moneyBox.innerText = money.replace(/\B(?<!\.\d|$)(?=(\d{3})+(?!\d))/g, ",");
+  moneyBox.innerText = comma(money);
 };
 
 const borderCheck = () => {
