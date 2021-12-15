@@ -18,7 +18,7 @@ const handleScrollResize = () => {
 const unitOfMoney = (productPriceBox) => {
   const money = productPriceBox.dataset.id;
   const moneyBox = productPriceBox.querySelector("div");
-  moneyBox.innerText = money.replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+  moneyBox.innerText = money.replace(/\B(?<!\.\d|$)(?=(\d{3})+(?!\d))/g, ",");
 };
 
 const borderCheck = () => {
