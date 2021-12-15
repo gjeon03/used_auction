@@ -336,7 +336,7 @@ export const startKakaoLogin = (req, res) => {
   const baseUrl = "https://kauth.kakao.com/oauth/authorize";
   const config = {
     client_id: process.env.KAKAO_KEY,
-    redirect_uri: "https://github.com/gjeon03/used_auction/users/kakao/finish",
+    redirect_uri: "https://used-auction.herokuapp.com/users/kakao/finish",
     response_type: "code",
     scope: "profile_image profile_nickname account_email",
   };
@@ -352,7 +352,7 @@ export const finishKakaoLogin = async (req, res) => {
     client_secret: process.env.KAKAO_SECRET,
     code: req.query.code,
     grant_type: "authorization_code",
-    redirect_uri: "https://github.com/gjeon03/used_auction/users/kakao/finish",
+    redirect_uri: "https://used-auction.herokuapp.com/users/kakao/finish",
   };
   const params = new URLSearchParams(config).toString();
   const finalUrl = `${baseUrl}?${params}`;
