@@ -11,11 +11,11 @@ block content
 		div.detail_form_data
 			div#img_container
 				if product.endCheck
-					img.sold_out_img(src="/img/soldOut.jpeg", alt="sold out")
+					img.sold_out_img(src="/img/soldOut.jpeg", alt="sold out", crossorigin)
 				img.product_main_img(src=product.fileUrl[0], alt=product.title)
 				div#img_thumb_container
 					each thumb in product.fileUrl 
-						img.thumbnail(src=thumb, alt=product.title)
+						img.thumbnail(src=thumb, alt=product.title, crossorigin)
 					else
 						div#product_thumb
 			div.product__data_fixed
