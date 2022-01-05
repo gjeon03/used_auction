@@ -238,6 +238,9 @@ export const profile = async (req, res) => {
       path: "owner",
       model: "User",
     },
+    options: {
+      sort: { createdAt: "asc" },
+    },
   });
   if (!user) {
     return res.status(404).render("404", { pageTitle: "User not found." });
