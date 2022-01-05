@@ -1,5 +1,5 @@
 @mixin small_window {
-  @media (max-width: 730px) {
+  @media (max-width: 771px) {
     @content;
   }
 }

@@ -15,27 +15,30 @@
         align-items: center;
       }
       &:nth-child(1) span {
-        background-color: $fashion;
+        background-color: $total;
       }
       &:nth-child(2) span {
-        background-color: $beauty;
+        background-color: $fashion;
       }
       &:nth-child(3) span {
-        background-color: $sports;
+        background-color: $beauty;
       }
       &:nth-child(4) span {
-        background-color: $furniture;
+        background-color: $sports;
       }
       &:nth-child(5) span {
-        background-color: $life;
+        background-color: $furniture;
       }
       &:nth-child(6) span {
-        background-color: $digital;
+        background-color: $life;
       }
       &:nth-child(7) span {
-        background-color: $books;
+        background-color: $digital;
       }
       &:nth-child(8) span {
+        background-color: $books;
+      }
+      &:nth-child(9) span {
         background-color: $other;
       }
     }
