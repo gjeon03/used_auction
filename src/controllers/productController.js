@@ -215,6 +215,7 @@ export const postEdit = async (req, res) => {
     period: period
       ? Product.updatePeriodCalculate(product.period, period)
       : product.period,
+    endCheck: Product.updatePeriodEndCheck(product.period, period),
     category: category ? category : product.category,
   });
   req.flash("success", "Changes saved.");
