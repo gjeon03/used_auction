@@ -4,8 +4,7 @@ include ../mixins/product
 block content
 	div.profile__data
 		if !loggedInUser.avatarUrl
-			div.emoji
-				span 😀
+			span 😀
 		else
 			if loggedInUser.social.socialOnly
 				img.header__avatar(src=loggedInUser.avatarUrl)

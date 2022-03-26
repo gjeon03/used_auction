@@ -238,7 +238,6 @@ export const profile = async (req, res) => {
       path: "owner",
       model: "User",
     },
-    options: { sort: { createdAt: "desc" } },
   });
   if (!user) {
     return res.status(404).render("404", { pageTitle: "User not found." });
@@ -337,7 +336,7 @@ export const startKakaoLogin = (req, res) => {
   const baseUrl = "https://kauth.kakao.com/oauth/authorize";
   const config = {
     client_id: process.env.KAKAO_KEY,
-    redirect_uri: "https://used-auction.herokuapp.com/users/kakao/finish",
+    redirect_uri: "http://localhost:4500/users/kakao/finish",
     response_type: "code",
     scope: "profile_image profile_nickname account_email",
   };
@@ -353,7 +352,7 @@ export const finishKakaoLogin = async (req, res) => {
     client_secret: process.env.KAKAO_SECRET,
     code: req.query.code,
     grant_type: "authorization_code",
-    redirect_uri: "https://used-auction.herokuapp.com/users/kakao/finish",
+    redirect_uri: "http://localhost:4500/users/kakao/finish",
   };
   const params = new URLSearchParams(config).toString();
   const finalUrl = `${baseUrl}?${params}`;

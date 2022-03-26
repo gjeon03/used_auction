@@ -49,6 +49,7 @@ export const home = async (req, res) => {
     products = await Product.find({}).sort(sortBy(sort)).populate("owner");
   }
   const results = productsResult(products);
+
   return res.render("home", {
     pageTitle: "HOME",
     products: results,
@@ -60,6 +61,8 @@ export const home = async (req, res) => {
 //Category
 const categoryK = (categoryE) => {
   switch (categoryE) {
+    case "total":
+      return "";
     case "fashion":
       return "패션";
     case "beauty":
@@ -215,7 +218,6 @@ export const postEdit = async (req, res) => {
     period: period
       ? Product.updatePeriodCalculate(product.period, period)
       : product.period,
-    endCheck: Product.updatePeriodEndCheck(product.period, period),
     category: category ? category : product.category,
   });
   req.flash("success", "Changes saved.");

@@ -37,14 +37,18 @@ const productTimeSet = () => {
       borderCheck(productDataForm, productA);
     }
     productTime(productDataForm);
+    //arrayResult[i].style.order = i;
     setInterval(() => {
       productTime(productDataForm);
+      //arrayResult[i].style.order = i;
     }, 1000);
   }
 };
 
 const borderColorSet = (productDataForm, color) => {
+  //const img = productDataForm.querySelector(".product-mixin__thumb img");
   productDataForm.style.borderTop = `10px solid ${color}`;
+  //img.style.borderBottom = `3px solid ${color}`;
 };
 
 const borderCheck = (productDataForm, productA) => {
@@ -76,5 +80,33 @@ const borderCheck = (productDataForm, productA) => {
       break;
   }
 };
+
+//Product Sort
+// const quickSort = (arr) => {
+//   if (arr.length <= 1) return arr;
+
+//   const pivot = arr[0];
+//   const left = [];
+//   const right = [];
+
+//   for (let i = 1; i < arr.length; i++) {
+//     if (
+//       new Date(arr[i].dataset.id).getTime() <=
+//       new Date(pivot.dataset.id).getTime()
+//     ) {
+//       left.push(arr[i]);
+//     } else {
+//       right.push(arr[i]);
+//     }
+//   }
+
+//   const lSorted = quickSort(left);
+//   const rSorted = quickSort(right);
+//   return [...lSorted, pivot, ...rSorted];
+// };
+
+// let productArray = productDataForms;
+
+// const arrayResult = quickSort(productArray);
 
 productTimeSet();
