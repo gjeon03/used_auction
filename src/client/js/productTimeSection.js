@@ -23,6 +23,16 @@ const productTime = (productDataForm) => {
 const productTimeSet = () => {
   for (let productDataForm of productDataForms) {
     const productA = productDataForm.querySelector(".product-mixin");
+    const productPrice = productDataForm.querySelector(
+      ".product-minin__price span"
+    );
+    const price = productPrice.innerText;
+
+    productPrice.innerText = `₩${price.replace(
+      /\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g,
+      ","
+    )}`;
+
     if (productA) {
       borderCheck(productDataForm, productA);
     }
