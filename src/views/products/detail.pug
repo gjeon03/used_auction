@@ -42,8 +42,8 @@ block content
 					div.product_price_container
 						span 현재 최고 입찰금액
 						div#product_price(data-id=product.currentPrice)
-							div.price_box
-					if !product.endCheck
+							div.price_box=product.currentPrice
+					if !product.endCheck && loggedIn
 						div.product_toBid
 							form.desiredPrice#priceForm
 								input.price_number(placeholder="현재 입찰 금액보다 큰 금액 입력", type="number", required)

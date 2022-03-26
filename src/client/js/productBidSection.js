@@ -1,12 +1,25 @@
 const productContainer = document.getElementById("detailContainer");
 const bidForm = productContainer.querySelector("#priceForm");
 
+const comma = (num) => {
+  const len = num.length;
+  let point = len % 3;
+  let str = num.substring(0, point);
+
+  while (point < len) {
+    if (str != "") str += ",";
+    str += num.substring(point, point + 3);
+    point += 3;
+  }
+  return str;
+};
+
 const fixCurrentPrice = (buyer, price) => {
   const buyerBox = productContainer.querySelector(".product_buyer div");
   const priceBox = productContainer.querySelector(".price_box");
   const bidCount = document.getElementById("bidsCount");
   buyerBox.innerText = buyer;
-  priceBox.innerText = price;
+  priceBox.innerText = comma(price);
   bidCount.innerText = Number(bidCount.innerText) + 1;
 };
 
