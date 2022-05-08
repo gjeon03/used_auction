@@ -39,9 +39,11 @@ const productTimeSet = () => {
     const productPrice = productDataForm.querySelector(
       ".product-minin__price span"
     );
-    const price = productPrice.innerText;
+    if (productPrice) {
+      const price = productPrice.innerText;
 
-    productPrice.innerText = `₩${comma(price)}`;
+      productPrice.innerText = `₩${comma(price)}`;
+    }
 
     if (productA) {
       borderCheck(productDataForm, productA);
